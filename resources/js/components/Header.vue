@@ -49,14 +49,16 @@
             </div>
         </nav>
 
-        <div class="flex flex-1">
+        <div class="flex flex-1 md-top-1">
             <!-- Sidebar -->
             <aside
-                class="bg-white w-64 h-full fixed left-0 md:top-1 shadow-md transition-transform duration-300 ease-in-out transform md:-translate-x-56 md:hover:translate-x-0"
+                class="bg-white w-64 h-full top-1 fixed left-0 shadow-md transition-transform duration-300 ease-in-out transform md:-translate-x-56 md:hover:translate-x-0"
                 :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:-translate-x-56'"
             >
                 <div class="p-5 flex justify-between items-center border-b">
-                    <h2 class="text-xl font-semibold">Menu</h2>
+                    <div class="text-2xl font-bold ml-6">
+                        <span class="text-red-600">WD</span><span class="text-blue-600">LINK</span>
+                    </div>
                     <button @click="toggleSidebar" class="md:hidden text-gray-700 text-2xl focus:outline-none">
                         &times;
                     </button>
@@ -93,7 +95,7 @@
         <!-- Overlay for mobile -->
         <div
             v-if="isSidebarOpen"
-            class="fixed inset-0 bg-black bg-opacity-50 md:hidden"
+            class="fixed inset-0 md:hidden"
             @click="toggleSidebar"
         ></div>
     </div>
