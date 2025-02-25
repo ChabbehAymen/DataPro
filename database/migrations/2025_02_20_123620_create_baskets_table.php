@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete(action: 'cascade');
             $table->decimal('quantity');
             $table->dateTime('date');
-            $table->boolean('confirmer')->default(0)->change();
-            $table->boolean('terminer')->default(0)->change();
+            $table->boolean('confirmed')->default(0)->change();
+            $table->boolean('completed')->default(0)->change();
             $table->timestamps();
         });
     }
