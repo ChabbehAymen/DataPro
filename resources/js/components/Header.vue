@@ -26,7 +26,7 @@
         </header>
 
         <!-- Navigation Bar -->
-        <nav class="bg-blue-100 p-3 flex items-center space-x-4">
+        <nav class="bg-blue-100 p-3 flex items-center justify-center space-x-4">
             <div class="hidden md:flex space-x-6 text-gray-800">
                 <a href="#" class="flex items-center space-x-1">
                     🏪 <span>Point De Vente</span>
