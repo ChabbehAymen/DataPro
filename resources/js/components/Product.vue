@@ -32,3 +32,4 @@
 <script setup>
 // Pas de logique spécifique pour l'instant
 </script>
+
