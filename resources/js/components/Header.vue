@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-screen flex-col">
+    <div class="flex flex-col">
         <!-- Navbar (Always Visible) -->
         <header class="bg-white shadow-md p-3 flex items-center justify-between md:pl-4">
             <!-- Mobile Sidebar Toggle Button -->
@@ -86,10 +86,10 @@
             </aside>
 
             <!-- Main Content -->
-            <div class="flex-1 p-6 transition-all duration-300 md:ml-16">
-                <h1 class="text-2xl font-semibold">Welcome to WDLink</h1>
-                <p class="text-gray-600 mt-2">This is your main content area.</p>
-            </div>
+<!--            <div class="flex-1 p-6 transition-all duration-300 md:ml-16">-->
+<!--                <h1 class="text-2xl font-semibold">Welcome to WDLink</h1>-->
+<!--                <p class="text-gray-600 mt-2">This is your main content area.</p>-->
+<!--            </div>-->
         </div>
 
         <!-- Overlay for mobile -->
