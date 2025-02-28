@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Repository\RepositoryContract;
 use Illuminate\Http\Request;
 
-abstract class BaseService implements ServiceContract
+class BaseService implements ServiceContract
 {
     protected $repository;
     public function __construct(RepositoryContract $repository)
