@@ -9,23 +9,17 @@ class BasketSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('basket')->insert([
+        DB::table('baskets')->insert([
             [
                 'user_id' => 1,
-                'produit_id' => 1,
+                'product_id' => 1,
                 'quantity' => 2,
                 'date' => now(),
-                'confirmer' => false,
-                'terminer' => false,
+                'confirmed' => false,
+                'completed' => false,
             ],
-            [
-                'user_id' => 2,
-                'produit_id' => 2,
-                'quantity' => 1,
-                'date' => now(),
-                'confirmer' => true,
-                'terminer' => false,
-            ],
+            
         ]);
     }
 }
+
