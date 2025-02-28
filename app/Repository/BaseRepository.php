@@ -5,7 +5,7 @@ namespace App\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class BaseRepository implements RepositoryContract
+class BaseRepository implements RepositoryContract
 {
     protected Model $model;
     public function __construct(Model $model)
