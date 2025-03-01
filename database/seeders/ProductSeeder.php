@@ -9,17 +9,15 @@ class ProductSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('product')->insert([
+        DB::table('products')->insert([
             [
                 'title' => 'Laptop HP',
                 'desc' => 'Powerful laptop for developers.',
-                'date' => now(),
                 'price' => 1200,
             ],
             [
                 'title' => 'Smartphone Samsung',
                 'desc' => 'Latest model with AI features.',
-                'date' => now(),
                 'price' => 800,
             ],
         ]);
