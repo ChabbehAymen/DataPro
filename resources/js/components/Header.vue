@@ -52,7 +52,7 @@
         <div class="flex flex-1 md-top-1">
             <!-- Sidebar -->
             <aside
-                class="bg-white w-64 h-full top-1 fixed left-0 shadow-md transition-transform duration-300 ease-in-out transform md:-translate-x-56 md:hover:translate-x-0"
+                class="bg-white z-10 w-64 h-full top-1 fixed left-0 shadow-md transition-transform duration-300 ease-in-out transform md:-translate-x-56 md:hover:translate-x-0"
                 :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:-translate-x-56'"
             >
                 <div class="p-5 flex justify-between items-center border-b">
