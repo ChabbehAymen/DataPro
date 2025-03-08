@@ -321,11 +321,11 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
+            'text' => 'Dashboard',
+            'url' => 'admin/dashboard',
             'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
+//            'label' => 4,
+//            'label_color' => 'success',
         ],
         ['header' => 'account_settings'],
         [
@@ -338,41 +338,20 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
+        ['header' => 'Manage Site'],
         [
-            'text' => 'multilevel',
+            'text' => 'Products',
             'icon' => 'fas fa-fw fa-share',
+            'label' => 4,
+            'label_color' => 'info',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'List Products',
+                    'url' => '/admin/products',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Create Product',
+                    'url' => '/admin/products/create',
                 ],
             ],
         ],

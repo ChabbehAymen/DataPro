@@ -48,6 +48,16 @@ class User extends Authenticatable
     }
 
     /**
+     * User Relation to Product
+     *
+     * @return HasMany
+     */
+    public function product(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    /**
      * User Relation to Baskets
      *
      * @return HasMany
