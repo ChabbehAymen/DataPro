@@ -18,8 +18,9 @@ class BaseRepository implements RepositoryContract
      *
      * @return Collection
      */
-    public function all(): Collection
+    public function all($relations = null): Collection
     {
+        if($relations) return  $this->model->with($relations)->get();
         return $this->model->all();
     }
 
@@ -29,7 +30,7 @@ class BaseRepository implements RepositoryContract
      * @param int $id
      * @return mixed
      */
-    public function find(int $id)
+    public function find(int $id): mixed
     {
         return $this->model->findOrFail($id);
     }
@@ -65,8 +66,8 @@ class BaseRepository implements RepositoryContract
      * @param int $id
      * @return void
      */
-    public function delete(int $id): void
+    public function delete(int $id): bool
     {
-        $this->model->destroy($id);
+        return $this->model->destroy($id);
     }
 }

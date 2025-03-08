@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class ProductImg extends Model
+class ProductImage extends Model
 {
     protected $fillable = [
         'product_id',
@@ -16,10 +16,10 @@ class ProductImg extends Model
     /**
      * ProductImage relation to Product
      *
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function product(): HasOne
+    public function product(): BelongsTo
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

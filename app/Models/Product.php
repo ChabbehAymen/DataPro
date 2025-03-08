@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -15,13 +16,23 @@ class Product extends Model
     ];
 
     /**
-     * product relation to ProductImg
+     * products relation to User
      *
-     * @return BelongsToMany
+     * @return BelongsTo
      */
-    public function productImg(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return  $this->belongsToMany(ProductImg::class);
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * products relation to ProductImage
+     *
+     * @return HasMany
+     */
+    public function productImage(): HasMany
+    {
+        return  $this->hasMany(ProductImage::class);
     }
 
     /**
@@ -31,7 +42,7 @@ class Product extends Model
      */
     public function category(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class,  'product_category');
+        return $this->belongsToMany(Category::class,  'product_category',  'product_id', 'category_id');
     }
 
     /**
@@ -51,6 +62,6 @@ class Product extends Model
      */
     public function tag(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class,  'product_tag');
+        return $this->belongsToMany(Tag::class,  'product_tags');
     }
 }

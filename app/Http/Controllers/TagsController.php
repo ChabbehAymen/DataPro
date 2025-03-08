@@ -29,10 +29,10 @@ class TagsController extends Controller
         $this->service->update($id, $request);
         return redirect(route('tag.index'));
     }
-    
-    
+
+
     public function destroy($id){
         $this->service->delete($id);
-        return redirect(route('product.index'));
+        return redirect(route('products.index'));
     }
 }

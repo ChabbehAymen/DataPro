@@ -11,4 +11,8 @@ class ProductService extends BaseService
     {
         parent::__construct($repository);
     }
+
+    public function paginate()
+    {
+    }
 }
