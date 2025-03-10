@@ -8,31 +8,34 @@ use App\Models\Tag;
 
 class TagRepository
 {
-    public function getAll()
+    // Get all tags
+    public function all()
     {
         return Tag::all();
     }
 
-    public function findById($id)
+    // Find a tag by its ID
+    public function find($id)
     {
-        return Tag::findOrFail($id);
+        return Tag::find($id);
     }
 
-    public function create($data)
+    // Create a new tag
+    public function create(array $data)
     {
         return Tag::create($data);
     }
 
-    public function update($id, $data)
+    // Update a tag
+    public function update($tag, array $data)
     {
-        $tag = Tag::findOrFail($id);
         $tag->update($data);
         return $tag;
     }
 
-    public function delete($id)
+    // Delete a tag
+    public function delete($tag)
     {
-        $tag = Tag::findOrFail($id);
-        $tag->delete();
+        return $tag->delete();
     }
 }
