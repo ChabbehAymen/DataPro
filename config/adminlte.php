@@ -342,7 +342,7 @@ return [
         [
             'text' => 'Products',
             'icon' => 'fas fa-fw fa-share',
-            'label' => 4,
+            'label' => (isset($data) ? sizeof($data) : 0),
             'label_color' => 'info',
             'submenu' => [
                 [

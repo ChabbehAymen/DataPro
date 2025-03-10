@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 interface ServiceContract
 {
@@ -12,7 +12,7 @@ interface ServiceContract
      * @param array|null $relations Optional array of related models to eager load.
      * @return mixed A collection of all records.
      */
-    public function all(array $relations = null): mixed;
+    public function all(): mixed;
 
     /**
      * Find a specific record by its unique ID.
@@ -25,20 +25,19 @@ interface ServiceContract
     /**
      * Create a new record with validation.
      *
-     * @param Request $request The HTTP request containing input data.
-     * @param array $rules Validation rules for the input data.
+     * @param FormRequest $request The HTTP request containing input data.
      * @return bool True if creation is successful, false otherwise.
      */
-    public function create(Request $request, array $rules): bool;
+    public function create(FormRequest $request): bool;
 
     /**
      * Update an existing record by its ID.
      *
      * @param int $id The unique identifier of the record.
-     * @param Request $request The HTTP request containing updated data.
+     * @param FormRequest $request The HTTP request containing updated data.
      * @return mixed The updated record or false on failure.
      */
-    public function update(int $id, Request $request);
+    public function update(int $id, FormRequest $request);
 
     /**
      * Delete a record by its unique ID.
