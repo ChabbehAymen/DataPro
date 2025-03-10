@@ -39,12 +39,11 @@ class BaseRepository implements RepositoryContract
      * create a new model into database.
      *
      * @param array $data
-     * @return bool
+     * @return mixed
      */
-    public function create(array $data): bool
+    public function create(array $data): mixed
     {
-        $this->model->fill($data);
-        return $this->model->save();
+        return $this->model->create($data);
     }
 
     /**
