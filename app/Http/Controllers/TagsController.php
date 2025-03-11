@@ -4,35 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Services\TagService;
 use Illuminate\Http\Request;
+use App\HTTP\Requests\TagRequest;
 
 class TagsController extends Controller
 {
-    private $service ;
+    protected $tagService;
 
-    public function __construct(TagService $service){
-        $this->service = $service;
-    }
-
-    public function index(){
-       return $this->service->all();
-    }
-
-    public function store(Request $request ){
-        if(
-            $this->service->create($request,
-            ["title"=>"required|string|max:255"
-            ])) return redirect("tag.index") ; else return redirect('tag.creat');
-    }
-
-    public function update(Request $request, $id)
+    public function __construct(TagService $tagService)
     {
-        $this->service->update($id, $request);
-        return redirect(route('tag.index'));
+        $this->tagService = $tagService;
     }
 
+    public function index()
+    {
+        $tags = $this->tagService->getAllTags();
+        return view('tags.index', compact('tags'));
+    }
 
-    public function destroy($id){
-        $this->service->delete($id);
-        return redirect(route('products.index'));
+    public function create()
+    {
+        return view('tags.create');
+    }
+
+    public function store(TagRequest $request)
+    {
+        $this->tagService->createTag($request->validated());
+    
+        return redirect()->route('tags.index')->with('success', 'Tag created successfully.');
+    }
+    
+
+    public function edit($id)
+    {
+        $tag = $this->tagService->getTagById($id);
+        return view('tags.edit', compact('tag'));
+    }
+
+    public function update(TagRequest $request, $id)
+    {
+        $result = $this->tagService->updateTag($id, $request->validated());
+    
+        if ($result) {
+            return redirect()->route('tags.index')->with('success', 'Tag updated successfully.');
+        }
+    
+        return redirect()->route('tags.index')->with('error', 'Tag not found.');
+    }
+    
+
+    public function destroy($id)
+    {
+        $this->tagService->deleteTag($id);
+        return redirect()->route('tags.index')->with('success', 'Tag deleted successfully.');
     }
 }
