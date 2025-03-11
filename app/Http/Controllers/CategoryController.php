@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Services\CategoryService;
+use App\Models\Category;
+use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct(protected CategoryService $service){
-
-    }
+    public function __construct(protected CategoryService $service)
+    {}
 
     public function index(Request $request){
-        $data = $this->service->all()->pagination(5);
+        $data = $this->service->paginated();
         if (str_contains($request->path(), 'admin')) {
             return view('category.index', compact('data'));
         }
@@ -23,27 +24,32 @@ class CategoryController extends Controller
         return $this->service->find($id);
     }
 
+    public function create(Request $request)
+    {
+        return view('category.create');
+    }
 
-    public function store(Request $request){
-        if($this->service->create($request,
-            [
-                "title" => "required|string|max:255",
-
-            ]))
-            return redirect(route('category.index')); 
-        else return redirect(route('category.index'));
+    public function store(StoreCategoryRequest $request){
+        if($this->service->create($request))
+            return redirect(route('categories.index')); 
+        return redirect(route('categories.create'));
 
     }
 
-    public function update(Request $request, $id){
-        $this->service->update($request, $id);
-        return redirect(route(''));
+    public function edit($id){
+        $category = $this->service->find($id);
+        return view('category.edit', compact('category'));
+    }
+
+    public function update(StoreCategoryRequest $request, int $id){
+        $this->service->update($id , $request);
+        return redirect(route('categories.index'));
 
     }
 
     public function destroy($id){
         $this->service->delete($id);
-        return redirect(route('')); 
+        return redirect(route('categories.index')); 
     }
 
 }

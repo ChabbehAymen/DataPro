@@ -39,8 +39,9 @@ class ProductController extends Controller
     {
         if ($this->service->create($request))
             return redirect(route('products.index'));
-        else return redirect(route('products.create'))->withErrors('Error Creating Product','create');
+        return redirect(route('products.create'));
     }
+    
 
     public function update(StoreProductRequest $request, $id) // TODO Update Request
     {

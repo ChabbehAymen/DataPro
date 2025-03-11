@@ -12,12 +12,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Liste des Category</h1>
+                    <h1>List of categories</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                        <li class="breadcrumb-item active">categorie</li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Categories</li>
                     </ol>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <a href="{{ Route('categories.create') }}" class="btn btn-primary btn-sm p-2 text-white"><i
-                                class="fas fa-plus"></i> Ajouter category</a>
+                                class="fas fa-plus"></i> Add category</a>
                     </ol>
                 </div>
             </div>
@@ -40,7 +40,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Table des products</h3>
+                    <h3 class="card-title">Table of categories</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -49,7 +49,7 @@
                         <tr>
                             <th>#</th>
                             <th>Title</th>
-                            <th>User</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -58,14 +58,11 @@
                             <tr>
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->title }}</td>
-                                <td>{{ $category->user->full_name ?? 'admin' }}</td>
                                 <td>{{ $category->created_at?$category->created_at->format('Y-m-d') : now() }}</td>
                                 <td>
-                                    <a href="{{Route('categories.show',$category)}}" class="btn btn-primary btn-sm"><i
-                                            class="fas fa-eye"></i></a>
-                                    <a href="{{Route('categories.edit',$category)}}" class="btn btn-info btn-sm"><i
+                                    <a href="{{ route('categories.edit',$category)}}" class="btn btn-info btn-sm"><i
                                             class="fas fa-edit"></i> </a>
-                                    <form action="{{ route('categories.destroy', $product) }}" method="POST"
+                                    <form action="{{ route('categories.destroy', $category) }}" method="POST"
                                           style="display:inline;">
                                         @csrf
                                         @method('DELETE')

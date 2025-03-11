@@ -10,4 +10,16 @@ class CategoryRepository extends BaseRepository {
         
         parent::__construct($model);
     }
+
+    public function getAll()
+    {
+        return $this->model->select('id', 'title', 'created_at')->get();
+    }
+
+    public function paginate($perPage)
+    {
+        return $this->model->paginate($perPage);
+    }
+
+
 }

@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-<h1>Create Category</h1>
+<h1>Update Category</h1>
 @stop
 @section('css')
 @vite(['resources/css/app.css'])
@@ -18,18 +18,19 @@
                 <ol class="breadcrumb float-sm-right">
                     {{-- <li class="breadcrumb-item"><a href="{{Route('dashboard')}}">Accueil</a></li> --}}
                     <li class="breadcrumb-item active"><a href="{{Route('categories.index')}}">Categories</a></li>
-                    <li class="breadcrumb-item active">Create</li>
+                    <li class="breadcrumb-item active">Update</li>
                 </ol>
             </div>
         </div>
     </div>
     <div class="card-header">
-        <h3 class="card-title">Create Category</h3>
+        <h3 class="card-title">Update Category</h3>
     </div>
 
     <!-- /.card-header -->
     <!-- form start -->
-    <form action="{{route('categories.store')}}" method="POST">
+    <form action="{{ route('categories.update', $category->id) }}" method="POST">
+        @method('PUT')
         @csrf
         <div class="card-body">
             <!-- Titre Field -->

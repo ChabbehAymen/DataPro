@@ -10,6 +10,8 @@ Route::name('public')->resource('products', ProductController::class);
 
 Route::resource('/admin/categories', CategoryController::class);
 
+
+
 Route::get('/{vue_capture}', function () {
    return view('welcome');
 })->where('vue_capture', "[\/\w\.-]*")->name('vue');
