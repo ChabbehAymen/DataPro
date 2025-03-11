@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Repository\CategoryRepository;
-use App\Repository\RepositoryContract;
 use Illuminate\Foundation\Http\FormRequest;
 
 
@@ -16,7 +15,7 @@ class CategoryService extends BaseService
 
     public function all(): mixed
     {
-        return $this->repository->getAll();
+        return $this->repository->all()->pagination(5);
     }
 
     public function create(FormRequest $request): bool
@@ -27,10 +26,5 @@ class CategoryService extends BaseService
         if ($category) return true;
         return false;
     }
-
-    public function paginated()
-{
-    return $this->repository->paginate(5);
-}
 
 }
