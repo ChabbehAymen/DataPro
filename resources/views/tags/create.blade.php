@@ -1,4 +1,3 @@
-<!-- resources/views/tags/create.blade.php -->
 @extends('adminlte::page')
 
 @section('title', 'Create Tag')

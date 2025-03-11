@@ -1,5 +1,5 @@
 <?php
-// app/Services/TagService.php
+
 namespace App\Services;
 
 use App\Repositories\TagRepository;
@@ -15,12 +15,12 @@ class TagService
 
     public function getAllTags()
     {
-        return $this->tagRepository->getAll();
+        return $this->tagRepository->all();
     }
 
     public function getTagById($id)
     {
-        return $this->tagRepository->findById($id);
+        return $this->tagRepository->find($id);
     }
 
     public function createTag($data)
@@ -30,11 +30,16 @@ class TagService
 
     public function updateTag($id, $data)
     {
-        return $this->tagRepository->update($id, $data);
+        $tag = $this->tagRepository->find($id); 
+        if (!$tag) {
+            return null; 
+        }
+        return $this->tagRepository->update($tag, $data); 
     }
 
     public function deleteTag($id)
     {
-        return $this->tagRepository->delete($id);
+        $tag = $this->tagRepository->find($id);
+        return $this->tagRepository->delete($tag);
     }
 }

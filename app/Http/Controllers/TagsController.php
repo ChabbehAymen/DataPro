@@ -1,23 +1,23 @@
 <?php
 
-// app/Http/Controllers/TagController.php
 namespace App\Http\Controllers;
 
-use App\Repositories\TagRepository;
+use App\Services\TagService;
 use Illuminate\Http\Request;
+use App\HTTP\Requests\TagRequest;
 
 class TagsController extends Controller
 {
-    protected $tagRepository;
+    protected $tagService;
 
-    public function __construct(TagRepository $tagRepository)
+    public function __construct(TagService $tagService)
     {
-        $this->tagRepository = $tagRepository;
+        $this->tagService = $tagService;
     }
 
     public function index()
     {
-        $tags = $this->tagRepository->all();
+        $tags = $this->tagService->getAllTags();
         return view('tags.index', compact('tags'));
     }
 
@@ -26,40 +26,35 @@ class TagsController extends Controller
         return view('tags.create');
     }
 
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-        ]);
-
-        $this->tagRepository->create($request->all());
-
+        $this->tagService->createTag($request->validated());
+    
         return redirect()->route('tags.index')->with('success', 'Tag created successfully.');
     }
+    
 
     public function edit($id)
     {
-        $tag = $this->tagRepository->find($id);  // Utilisation de la méthode find() du repository
+        $tag = $this->tagService->getTagById($id);
         return view('tags.edit', compact('tag'));
     }
 
-    public function update(Request $request, $id)
+    public function update(TagRequest $request, $id)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-        ]);
-
-        $tag = $this->tagRepository->find($id);
-        $this->tagRepository->update($tag, $request->all());
-
-        return redirect()->route('tags.index')->with('success', 'Tag updated successfully.');
+        $result = $this->tagService->updateTag($id, $request->validated());
+    
+        if ($result) {
+            return redirect()->route('tags.index')->with('success', 'Tag updated successfully.');
+        }
+    
+        return redirect()->route('tags.index')->with('error', 'Tag not found.');
     }
+    
 
     public function destroy($id)
     {
-        $tag = $this->tagRepository->find($id);
-        $this->tagRepository->delete($tag);
-
+        $this->tagService->deleteTag($id);
         return redirect()->route('tags.index')->with('success', 'Tag deleted successfully.');
     }
 }
