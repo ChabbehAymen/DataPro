@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\TagRepository;
+use App\Repository\TagRepository;
 
 class TagService
 {
@@ -30,11 +30,11 @@ class TagService
 
     public function updateTag($id, $data)
     {
-        $tag = $this->tagRepository->find($id); 
+        $tag = $this->tagRepository->find($id);
         if (!$tag) {
-            return null; 
+            return null;
         }
-        return $this->tagRepository->update($tag, $data); 
+        return $this->tagRepository->update($tag, $data);
     }
 
     public function deleteTag($id)
