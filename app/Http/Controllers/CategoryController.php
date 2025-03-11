@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct(protected CategoryService $Service){
+    public function __construct(protected CategoryService $service){
 
     }
 
-    public function index(){
-        return $this->service->all();
+    public function index(Request $request){
+        $data = $this->service->all()->pagination(5);
+        if (str_contains($request->path(), 'admin')) {
+            return view('category.index', compact('data'));
+        }
+        return response()->json($data, 200);
     }
 
     public function show($id){
@@ -25,8 +30,8 @@ class CategoryController extends Controller
                 "title" => "required|string|max:255",
 
             ]))
-            return redirect(route('')); 
-        else return redirect(route(''));
+            return redirect(route('category.index')); 
+        else return redirect(route('category.index'));
 
     }
 

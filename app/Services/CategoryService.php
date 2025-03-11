@@ -12,4 +12,12 @@ class CategoryService extends BaseService
         
         parent::__construct($repository);
     }
+
+    public function all(): mixed
+    {
+        return $this->repository->all([
+            'user',
+            'title',
+        ]);
+    }
 }
