@@ -322,9 +322,8 @@ return [
         ],
         [
             'text' => 'Dashboard',
-            'url' => 'dashboard',
-            'icon' => 'fas fa-tachometer-alt', 
-      
+            'url' => 'admin/dashboard',
+            'icon' => 'fas fa-tachometer-alt',
         ],
         [
             'text' => 'List Tags',

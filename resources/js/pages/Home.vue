@@ -3,7 +3,9 @@
 */
 <template>
     <Header/>
-    <Product v-for="product in products" :id="product.id" :title="product.title" :desc="product.desc" :price="product.price"/>
+    <div class=" w-full mx-auto my-11 flex flex-wrap gap-5">
+        <Product v-for="product in products" :id="product.id" :title="product.title" :desc="product.desc" :price="product.price" :category="product.category"/>
+    </div>
 </template>
 
 <script setup>
