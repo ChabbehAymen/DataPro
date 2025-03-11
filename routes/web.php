@@ -9,6 +9,10 @@ Route::resource('tags', TagController::class);
 
 Route::get('/', [ProductController::class, 'index'])->name('index');
 
+Route::get('/dashboard', function(){
+   return view('dashboard');
+});
+
 
 
 

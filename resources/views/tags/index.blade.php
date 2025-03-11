@@ -3,8 +3,8 @@
 @section('title', 'Tags')
 
 @section('content_header')
-    <h1>Tags</h1>
-    <a href="{{ route('tags.create') }}" class="btn btn-primary">Create Tag</a>
+    <h1>Tags List</h1> <br>
+    <a href="{{ route('tags.create') }}" class="btn btn-primary">Create Tag</a><br>
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>#</th>
+                <th>id</th>
                 <th>Title</th>
                 <th>Actions</th>
             </tr>
