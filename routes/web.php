@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\TagController;
+use App\Http\Controllers\TagsController;
 
-Route::resource('/admin/tags', TagController::class);
+Route::resource('/admin/tags', TagsController::class);
 Route::resource('/admin/products', ProductController::class);
 Route::name('public')->resource('products', ProductController::class);
 
