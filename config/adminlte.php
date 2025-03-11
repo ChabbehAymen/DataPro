@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => 'WD<b>Link<b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -324,54 +324,15 @@ return [
             'text' => 'Dashboard',
             'url' => 'admin/dashboard',
             'icon' => 'fas fa-tachometer-alt',
-//            'label' => 4,
-//            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'List Tags',
+            'url' => 'tags',
+            'icon' => 'fa fa-tag',
+ 
+      
         ],
-        ['header' => 'Manage Site'],
-        [
-            'text' => 'Products',
-            'icon' => 'fas fa-fw fa-share',
-            'label' => (isset($data) ? sizeof($data) : 0),
-            'label_color' => 'info',
-            'submenu' => [
-                [
-                    'text' => 'List Products',
-                    'url' => '/admin/products',
-                ],
-                [
-                    'text' => 'Create Product',
-                    'url' => '/admin/products/create',
-                ],
-            ],
         ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
-    ],
 
     /*
     |--------------------------------------------------------------------------
