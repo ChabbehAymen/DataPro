@@ -325,14 +325,67 @@ return [
             'url' => 'admin/dashboard',
             'icon' => 'fas fa-tachometer-alt',
         ],
+        ['header' => 'account_settings'],
         [
-            'text' => 'List Tags',
-            'url' => 'tags',
-            'icon' => 'fa fa-tag',
- 
-      
+            'text' => 'profile',
+            'url' => 'admin/settings',
+            'icon' => 'fas fa-fw fa-user',
         ],
+        [
+            'text' => 'change_password',
+            'url' => 'admin/settings',
+            'icon' => 'fas fa-fw fa-lock',
         ],
+        ['header' => 'Manage Site'],
+        [
+            'text' => 'Products',
+            'icon' => 'fas fa-boxes',
+            'label' => (isset($data) ? sizeof($data) : 0),
+            'label_color' => 'info',
+            'submenu' => [
+                [
+                    'text' => 'List Products',
+                    'url' => '/admin/products',
+                ],
+                [
+                    'text' => 'Create Product',
+                    'url' => '/admin/products/create',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Tags',
+            'icon' => 'fas fa-tags',
+            'label' => (isset($data) ? sizeof($data) : 0),
+            'label_color' => 'info',
+            'submenu' => [
+                [
+                    'text' => 'List Tags',
+                    'url' => '/admin/tags',
+                ],
+                [
+                    'text' => 'Create Tags',
+                    'url' => '/admin/tags/create',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Categories',
+            'icon' => 'fas fa-layer-group',
+            'label' => (isset($data) ? sizeof($data) : 0),
+            'label_color' => 'info',
+            'submenu' => [
+                [
+                    'text' => 'List Categories',
+                    'url' => '/admin/categories',
+                ],
+                [
+                    'text' => 'Create Category',
+                    'url' => '/admin/categories/create',
+                ],
+            ],
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------

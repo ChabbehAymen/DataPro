@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TagRequest;
 use App\Services\TagService;
-use Illuminate\Http\Request;
-use App\HTTP\Requests\TagRequest;
 
 class TagsController extends Controller
 {
-    protected $tagService;
-
-    public function __construct(TagService $tagService)
-    {
-        $this->tagService = $tagService;
-    }
+    public function __construct(protected TagService $tagService)
+    {}
 
     public function index()
     {
-        $tags = $this->tagService->getAllTags();
+        $tags = $this->tagService->all()->pagination(5);
         return view('tags.index', compact('tags'));
     }
 
@@ -28,33 +23,32 @@ class TagsController extends Controller
 
     public function store(TagRequest $request)
     {
-        $this->tagService->createTag($request->validated());
-    
+        $this->tagService->create($request);
         return redirect()->route('tags.index')->with('success', 'Tag created successfully.');
     }
-    
+
 
     public function edit($id)
     {
-        $tag = $this->tagService->getTagById($id);
+        $tag = $this->tagService->find($id);
         return view('tags.edit', compact('tag'));
     }
 
     public function update(TagRequest $request, $id)
     {
-        $result = $this->tagService->updateTag($id, $request->validated());
-    
+        $result = $this->tagService->update($id, $request);
+
         if ($result) {
             return redirect()->route('tags.index')->with('success', 'Tag updated successfully.');
         }
-    
+
         return redirect()->route('tags.index')->with('error', 'Tag not found.');
     }
-    
+
 
     public function destroy($id)
     {
-        $this->tagService->deleteTag($id);
+        $this->tagService->delete($id);
         return redirect()->route('tags.index')->with('success', 'Tag deleted successfully.');
     }
 }
