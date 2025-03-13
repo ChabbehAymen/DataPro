@@ -55,7 +55,8 @@ class BaseService implements ServiceContract
     public function create(FormRequest $request): bool
     {
         $data = $request->validated();
-        return $this->repository->create($data);
+        if($this->repository->create($data)) return true;
+        return false;
     }
 
     /**

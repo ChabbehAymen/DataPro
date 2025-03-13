@@ -2,37 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TagRequest;
 use App\Services\TagService;
-use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {
-    private $service ;
+    public function __construct(protected TagService $tagService)
+    {}
 
-    public function __construct(TagService $service){
-        $this->service = $service;
-    }
-
-    public function index(){
-       return $this->service->all();
-    }
-
-    public function store(Request $request ){
-        if(
-            $this->service->create($request,
-            ["title"=>"required|string|max:255"
-            ])) return redirect("tag.index") ; else return redirect('tag.creat');
-    }
-
-    public function update(Request $request, $id)
+    public function index()
     {
-        $this->service->update($id, $request);
-        return redirect(route('tag.index'));
+        $tags = $this->tagService->all()->pagination(5);
+        return view('tags.index', compact('tags'));
+    }
+
+    public function create()
+    {
+        return view('tags.create');
+    }
+
+    public function store(TagRequest $request)
+    {
+        $this->tagService->create($request);
+        return redirect()->route('tags.index')->with('success', 'Tag created successfully.');
     }
 
 
-    public function destroy($id){
-        $this->service->delete($id);
-        return redirect(route('products.index'));
+    public function edit($id)
+    {
+        $tag = $this->tagService->find($id);
+        return view('tags.edit', compact('tag'));
+    }
+
+    public function update(TagRequest $request, $id)
+    {
+        $result = $this->tagService->update($id, $request);
+
+        if ($result) {
+            return redirect()->route('tags.index')->with('success', 'Tag updated successfully.');
+        }
+
+        return redirect()->route('tags.index')->with('error', 'Tag not found.');
+    }
+
+
+    public function destroy($id)
+    {
+        $this->tagService->delete($id);
+        return redirect()->route('tags.index')->with('success', 'Tag deleted successfully.');
     }
 }

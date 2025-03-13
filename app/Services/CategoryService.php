@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repository\CategoryRepository;
-use App\Repository\RepositoryContract;
+use Illuminate\Foundation\Http\FormRequest;
 
 
 class CategoryService extends BaseService
@@ -12,4 +12,19 @@ class CategoryService extends BaseService
         
         parent::__construct($repository);
     }
+
+    public function all(): mixed
+    {
+        return $this->repository->all()->pagination(5);
+    }
+
+    public function create(FormRequest $request): bool
+    {
+        $data = $request->validated();
+        $category = $this->repository->create($data);
+
+        if ($category) return true;
+        return false;
+    }
+
 }

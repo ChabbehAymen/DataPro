@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => 'WD<b>Link<b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -324,8 +324,6 @@ return [
             'text' => 'Dashboard',
             'url' => 'admin/dashboard',
             'icon' => 'fas fa-tachometer-alt',
-//            'label' => 4,
-//            'label_color' => 'success',
         ],
         ['header' => 'account_settings'],
         [
@@ -341,7 +339,7 @@ return [
         ['header' => 'Manage Site'],
         [
             'text' => 'Products',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-boxes',
             'label' => (isset($data) ? sizeof($data) : 0),
             'label_color' => 'info',
             'submenu' => [
@@ -355,21 +353,37 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
+            'text' => 'Tags',
+            'icon' => 'fas fa-tags',
+            'label' => (isset($data) ? sizeof($data) : 0),
+            'label_color' => 'info',
+            'submenu' => [
+                [
+                    'text' => 'List Tags',
+                    'url' => '/admin/tags',
+                ],
+                [
+                    'text' => 'Create Tags',
+                    'url' => '/admin/tags/create',
+                ],
+            ],
         ],
         [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
+            'text' => 'Categories',
+            'icon' => 'fas fa-layer-group',
+            'label' => (isset($data) ? sizeof($data) : 0),
+            'label_color' => 'info',
+            'submenu' => [
+                [
+                    'text' => 'List Categories',
+                    'url' => '/admin/categories',
+                ],
+                [
+                    'text' => 'Create Category',
+                    'url' => '/admin/categories/create',
+                ],
+            ],
         ],
     ],
 
