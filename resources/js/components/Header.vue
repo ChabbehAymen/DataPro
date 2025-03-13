@@ -53,7 +53,7 @@ const classObject = computed(() => ({
         </header>
 
         <!-- Navigation Bar -->
-        <div
+        <!-- <div
             class="fixed sidebar z-50 flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 h-screen w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5" :class="classObject">
             <div class="mb-2 p-4 flex items-center justify-around">
                 <h5 class="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-gray-900">
@@ -140,7 +140,7 @@ const classObject = computed(() => ({
                     </div>Log Out
                 </div>
             </nav>
-        </div>
+        </div> -->
     </div>
 </template>
 <style>
