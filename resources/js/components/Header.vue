@@ -1,6 +1,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
+
 // Sidebar state
 const isSidebarOpen = ref(false);
 
@@ -18,39 +19,42 @@ const classObject = computed(() => ({
 <template>
     <div class="flex flex-col">
         <!-- Navbar (Always Visible) -->
-        <header class="bg-white shadow-md p-3 flex items-center justify-between md:pl-4">
-            <div class="flex items-center">
-                <button @click="toggleSidebar" class="text-gray-700 text-2xl p-2 focus:outline-none">
-                    &#9776;
-                </button>
-                <div class="text-2xl font-bold ml-6">
-                    <span class="text-red-600">DATA</span><span class="text-blue-600">Pro</span>
-                </div>
+        <header class="bg-black shadow-md p-3 flex items-center justify-between md:pl-4">
+    <!-- Sidebar Toggle Button -->
+            <button @click="toggleSidebar" class="text-gray-700 text-2xl p-2 focus:outline-none">
+                &#9776;
+            </button>
+
+            <!-- Logo -->
+            <div class="text-2xl font-bold ml-6">
+                <span class="text-white">Data</span><span class="text-white">PRO</span>
             </div>
 
-            <!-- Search Bar -->
-            <div class='w-full max-w-lg bg-white rounded-lg shadow'>
-        <div
-            class="flex items-center px-3.5 py-2 text-gray-400 group hover:ring-1 hover:ring-gray-300 focus-within:!ring-2 ring-inset focus-within:!ring-blue-500 rounded-md">
-            <svg class="mr-2 h-5 w-5 stroke-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
-                </path>
-            </svg>
-            <input
-                  class="block w-full appearance-none bg-transparent text-base text-gray-700 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
-                  placeholder="Find anything..."
-                  aria-label="Search components"
-                  id="headlessui-combobox-input-:r5n:"
-                  role="combobox"
-                  type="text"
-                  aria-expanded="false"
-                  aria-autocomplete="list"
-                  value=""
-                  style="caret-color: rgb(107, 114, 128)"
-                />
-        </div>
-    </div>
+            <!-- Navigation Links -->
+            <div class="hidden md:flex space-x-6 ml-7">
+                <a class="text-white no-underline font-sans" href="#">Home</a>
+                <a class="text-white no-underline font-sans" href="#">Services</a>
+                <a class="text-white no-underline font-sans" href="#">Blog</a>
+                <a class="text-white no-underline font-sans" href="#">Help Center</a>
+                <a class="text-white no-underline font-sans" href="#">About</a>
+            </div>
+
+            <!-- SEARCH BAR -->
+            <div class="ml-auto relative w-full max-w-md">
+                <input
+                    type="text"
+                    placeholder="Search"
+                    class="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 text-gray-900 focus:ring-2 focus:ring-blue-400 outline-none"
+                >
+                <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.5 10.5a6 6 0 1 1-12 0 6 6 0 0 1 12 0z"/>
+                </svg>
+            </div>
+            <div>
+                <font-awesome-icon :icon="['fas', 'bell']" class="text-gray-500 text-xl" />
+            </div>
         </header>
+
 
         <!-- Navigation Bar -->
         <div
