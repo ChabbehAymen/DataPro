@@ -40,7 +40,7 @@ const classObject = computed(() => ({
             </div>
 
             <!-- SEARCH BAR -->
-            <div class="ml-auto relative w-full max-w-md">
+            <div class="ml-auto relative w-full max-w-md mr-auto">
                 <input
                     type="text"
                     placeholder="Search"
@@ -50,8 +50,9 @@ const classObject = computed(() => ({
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.5 10.5a6 6 0 1 1-12 0 6 6 0 0 1 12 0z"/>
                 </svg>
             </div>
-            <div>
+            <div class="space-x-6">
                 <font-awesome-icon :icon="['fas', 'bell']" class="text-gray-500 text-xl" />
+                <font-awesome-icon :icon="['fas', 'circle-user']" class="text-gray-500 text-xl" />
             </div>
         </header>
 
