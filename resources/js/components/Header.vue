@@ -51,8 +51,8 @@ const classObject = computed(() => ({
                 </svg>
             </div>
             <div class="space-x-6">
-                <font-awesome-icon :icon="['fas', 'bell']" class="text-gray-500 text-xl" />
-                <font-awesome-icon :icon="['fas', 'circle-user']" class="text-gray-500 text-xl" />
+                <font-awesome-icon :icon="['fas', 'bell']" class="text-white text-xl" />
+                <font-awesome-icon :icon="['fas', 'circle-user']" class="text-white text-xl" />
             </div>
         </header>
 
