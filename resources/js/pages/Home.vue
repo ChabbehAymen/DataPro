@@ -14,13 +14,14 @@ import Header from "../components/Header.vue";
 import Product from "../components/Product.vue";
 import SideBar from "../components/SideBar.vue";
 import {ref} from "vue";
+import axios from "axios";
 const products = ref([]);
 try {
     axios.get('./products').then(function (response) {
         products.value = response.data.data; 
     })
 } catch (e) {
-    console.error('[GET DATA]:: Something Went Wrong');
+    console.error('[GET DATA]:: Something Went Wrong', e);
 }
 </script>
 
