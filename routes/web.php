@@ -6,6 +6,7 @@ use App\Http\Controllers\TagsController;
 use App\Http\Controllers\CategoryController;
 
 Route::resource('/admin/tags', TagsController::class);
+Route::name('public')->resource('/tags', TagsController::class);
 
 // products routes
 Route::resource('/admin/products', ProductController::class);
