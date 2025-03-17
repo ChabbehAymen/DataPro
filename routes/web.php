@@ -16,6 +16,8 @@ Route::name('public')->resource('products', ProductController::class);
 Route::resource('/admin/categories', CategoryController::class);
 Route::name('public')->resource('/categories', CategoryController::class);
 
+Route::get('/admin/dashboard', function(){return view('dashboard');})->name('dashboard');
+
 // Vue Router
 Route::get('/{vue_capture}', function () {
    return view('welcome');

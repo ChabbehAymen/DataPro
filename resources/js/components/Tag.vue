@@ -1,6 +1,7 @@
 <template>
     <div :id="props.id"
-        class="ml-4 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded-full bg-white text-gray-700 border">
+        class="ml-4 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 cursor-pointer rounded-full bg-white text-gray-700 border"
+        :class="{'hover:!bg-gray-200':props.hover == true, '':props.hover==false}">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="feather feather-hard-drive mr-2">
@@ -15,6 +16,9 @@
     </div>
 </template>
 <script setup>
-const props = defineProps(['title', 'id']);
+import { computed } from 'vue';
+
+const props = defineProps(['title', 'id', 'hover']);
+
 </script>
 <style scoped></style>

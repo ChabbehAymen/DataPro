@@ -6,7 +6,7 @@
     <SideBar :isopen="isSidebarOpen" @toggleSidebar="toggleSidebar" />
     <Carousel />
     <div class="w-full px-[4%] my-11 flex">
-        <Tag v-for="tag in tags" :title="tag.title" :id="tag.id" :key="tag.id"/>
+        <Tag v-for="tag in tags" :title="tag.title" :id="tag.id" :key="tag.id" :hover="true"/>
     </div>
     <div class=" mx-[4%] my-11 flex flex-wrap gap-2">
         <Product v-for="product in products" :id="product.id" :title="product.title" :desc="product.desc"
