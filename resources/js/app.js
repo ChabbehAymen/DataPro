@@ -1,17 +1,32 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import '../css/app.css';
+import './bootstrap';
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router.js';
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-  // 🔹 Add icons to the library before using it
-library.add(faBell ,faCircleUser );
+import { createInertiaApp } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { createApp, h } from 'vue';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
-createApp(App)
-    .component("font-awesome-icon", FontAwesomeIcon)
-    .use(router)
-    .mount('#app');
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) =>
+        resolvePageComponent(
+            `./Pages/${name}.vue`,
+            import.meta.glob('./Pages/**/*.vue'),
+        ),
+    setup({ el, App, props, plugin }) {
+        return createApp({ render: () => h(App, props) })
+            .use(plugin)
+            .use(ZiggyVue)
+            .mount(el);
+    },
+    progress: {
+        color: '#4B5563',
+    },
+});
+
+const app = createApp(App)
+app.mount('#app')

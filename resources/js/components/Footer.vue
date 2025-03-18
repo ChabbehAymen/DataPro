@@ -7,9 +7,9 @@
                     <div class="text-2xl px-4">
 
 
-                        <h3 class="font-bold text-gray-900 dark:text-gray-100">DataPro<span style="color: #FF7F50;">.</span>
+                        <h3 class="font-bold text-gray-900">DataPro<span style="color: #FF7F50;">.</span>
                         </h3>
-                        <p class="mt-2 mb-4 text-gray-600 dark:text-gray-400 text-sm">
+                        <p class="mt-2 mb-4 text-gray-600 text-sm">
                             Language is humanity's greatest open-source project.
                         </p>
                         <div class="flex-row my-4">
@@ -17,7 +17,7 @@
                             <a class=" h-8 w-8 rounded-full outline-none focus:outline-none"
                                 href='mailto:ahampriyanshu@gmail.com?subject = Greeting&body = Hi there' type="button">
                                 <svg width="24" height="24"
-                                    class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-700 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500"
+                                    class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-700 hover:text-red-500"
                                     xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 512 512"
                                     xml:space="preserve">
                                     <g>
@@ -58,7 +58,7 @@
 
                             <a class="h-8 w-8 rounded-full outline-none focus:outline-none" type="button"
                                 href="https://www.linkedin.com/in/ahampriyanshu/">
-                                <svg class="fill-current transition duration-700 ease-in-out text-gray-700 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-500"
+                                <svg class="fill-current transition duration-700 ease-in-out text-gray-700 hover:text-blue-500"
                                     role="img" width="24" height="24" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <title>LinkedIn</title>
@@ -69,7 +69,7 @@
 
                             <a class="h-8 w-8 rounded-full outline-none focus:outline-none" type="button"
                                 href="https://ahampriyanshu.com">
-                                <svg class="h-6 transition duration-700 ease-in-out text-gray-700 dark:text-gray-400 hover:text-black dark:hover:text-black"
+                                <svg class="h-6 transition duration-700 ease-in-out text-gray-700 hover:text-black"
                                     role="img" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round">
@@ -84,7 +84,7 @@
 
                             <a class="h-8 w-8 rounded-full outline-none focus:outline-none" type="button"
                                 href="https://www.instagram.com/ahampriyanshu/">
-                                <svg class="fill-current transition duration-700 ease-in-out text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-600"
+                                <svg class="fill-current transition duration-700 ease-in-out text-gray-700 hover:text-pink-600"
                                     role="img" width="24" height="24" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <title>Instagram</title>
@@ -96,7 +96,7 @@
 
                             <a class="h-8 w-8 rounded-full outline-none focus:outline-none" type="button"
                                 href="http://www.github.com/ahampriyanshu">
-                                <svg class="fill-current transition duration-700 ease-in-out text-gray-700 dark:text-gray-400 hover:text-black dark:hover:text-black"
+                                <svg class="fill-current transition duration-700 ease-in-out text-gray-700 hover:text-black"
                                     role="img" width="24" height="24" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <title>Github</title>
@@ -110,8 +110,8 @@
                 </div>
                 <div class="flex w-full md:w-5/12 px-4">
                     <div class="text-2xl">
-                        <p class="font-bold text-gray-900 dark:text-gray-100">Subsrcibe</p>
-                        <p class="mt-2 mb-4 text-gray-600 dark:text-gray-400 text-sm">Get the latest posts delivered
+                        <p class="font-bold text-gray-900">Subsrcibe</p>
+                        <p class="mt-2 mb-4 text-gray-600 text-sm">Get the latest posts delivered
                             right
                             to your inbox</p>
                         <div class="my-4">
@@ -132,26 +132,26 @@
                 <div class="flex w-full md:w-2/12 px-4">
                     <div class="flex flex-wrap items-top">
                         <div class="w-full  ml-auto">
-                            <p class="font-bold text-2xl text-gray-900 dark:text-gray-100">Popular Tags</p>
+                            <p class="font-bold text-2xl text-gray-900">Popular Tags</p>
                             <ul class="list-unstyled mt-2 mb-4">
 
                                 <li>
-                                    <a class="text-gray-600 dark:text-gray-400 hover:underline py-1 text-sm"
+                                    <a class="text-gray-600 hover:underline py-1 text-sm"
                                         href='#'>roadmap</a>
                                 </li>
 
                                 <li>
-                                    <a class="text-gray-600 dark:text-gray-400 hover:underline py-1 text-sm"
+                                    <a class="text-gray-600 hover:underline py-1 text-sm"
                                         href='#'>features</a>
                                 </li>
 
                                 <li>
-                                    <a class="text-gray-600 dark:text-gray-400 hover:underline py-1 text-sm"
+                                    <a class="text-gray-600 hover:underline py-1 text-sm"
                                         href='#'>defi</a>
                                 </li>
 
                                 <li>
-                                    <a class="text-gray-600 dark:text-gray-400 hover:underline py-1 text-sm"
+                                    <a class="text-gray-600 hover:underline py-1 text-sm"
                                         href='#'>blockchain</a>
                                 </li>
 
@@ -163,7 +163,7 @@
             <hr class="my-3 md:my-6 border-gray-400" />
             <div class="flex flex-wrap items-center md:justify-between justify-center">
                 <div class="w-full md:w-4/12 px-4 mx-auto text-center">
-                    <div class="text-sm text-gray-600 dark:text-gray-400 py-1">
+                    <div class="text-sm text-gray-600 py-1">
                         &copy;
                         <span id="year">2025</span>
                         <a href="https://github.com/ahampriyanshu"

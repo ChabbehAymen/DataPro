@@ -1,28 +1,27 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\TagsController;
-use App\Http\Controllers\CategoryController;
+use Inertia\Inertia;
 
-Route::resource('/admin/tags', TagsController::class);
-Route::name('public')->resource('/tags', TagsController::class);
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
-// products routes
-Route::resource('/admin/products', ProductController::class);
-Route::name('public')->resource('products', ProductController::class);
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// categories routes
-Route::resource('/admin/categories', CategoryController::class);
-Route::name('public')->resource('/categories', CategoryController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/admin/dashboard', function(){return view('dashboard');})->name('dashboard');
-
-// Vue Router
-Route::get('/{vue_capture}', function () {
-   return view('welcome');
-})->where('vue_capture', "[\/\w\.-]*")->name('vue');
-
-
-
-
+require __DIR__.'/auth.php';
