@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TagRequest;
 use App\Services\TagService;
+use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {
     public function __construct(protected TagService $tagService)
     {}
 
-    public function index()
+    public function index(Request $request)
     {
-        $tags = $this->tagService->all()->pagination(5);
-        return view('tags.index', compact('tags'));
+        $tags = $this->tagService->all();
+        if(str_contains($request->path(), 'admin')){
+            $tags = $tags->pagination(5);
+            return view('tags.index', compact('tags'));
+        }
+        return response()->json($tags);
     }
 
     public function create()
