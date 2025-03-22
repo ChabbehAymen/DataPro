@@ -71,8 +71,19 @@
                             id="headlessui-combobox-input-:r5n:" role="combobox" type="text" aria-expanded="false"
                             aria-autocomplete="list" value="" style="caret-color: rgb(107, 114, 128)" />
                     </div>
+
                 </div>
-                <span>
+                <button v-show="isloged==false" @click="login" class="cursor-pointer flex items-center gap-1 text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-log-in mr-2">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        <polyline points="10 17 15 12 10 7"></polyline>
+                        <line x1="15" y1="12" x2="3" y2="12"></line>
+                    </svg>
+                    Login
+                </button>
+                <span v-show="isloged" @click="profile">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:opacity-50" fill="none"
                         viewBox="0 0 24 24" stroke="black">
                         <!-- Head -->
@@ -85,7 +96,7 @@
                     </svg>
 
                 </span>
-                <span>
+                <span v-show="isloged">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:opacity-50" fill="none"
                         viewBox="0 0 24 24" stroke="black">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -101,10 +112,24 @@ import { computed, onMounted, ref } from "vue";
 import axios from "axios";
 
 const isMenuOpen = ref(false);
+const isloged = ref(false);
 const categories = ref([]);
 const emit = defineEmits(['toggleSidebar']);
 const iconRotation = computed(() => isMenuOpen.value ? 'rotate-180' : 'rotate-0');
 
+// get user data from meta tag
+const logedData = document.querySelector('meta[name="user"]').getAttribute('content');
+if (logedData) {
+    isloged.value = JSON.parse(logedData);
+}
+// navigate to login
+const login = () => {
+    window.location.href = '/login';
+}
+// navigate to profile
+const profile = () => {
+    window.location.href = '/profile';
+}
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
 };
