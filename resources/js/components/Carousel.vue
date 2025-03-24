@@ -2,7 +2,7 @@
  
 -->
 <template>
-    <div class="h-[50vh] my-11 mx-11 px-5 flex justify-between items-center text-white text-2xl font-bold bg-cover bg-center" style="background-image: url('/images/carousel-image.png');">
+    <div class="flex h-[50vh] my-11 mx-11 px-5 justify-between items-center text-white text-2xl font-bold bg-cover bg-center" style="background-image: url('/images/carousel-image.png');">
         <div class="flex flex-col ">
             <h1 class="text-4xl font-extrabold">High-Quality IT Hardware</h1>
             <p class="text-2xl">PCs, servers, network cables & more</p>

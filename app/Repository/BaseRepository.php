@@ -7,21 +7,55 @@ use Illuminate\Database\Eloquent\Collection;
 
 class BaseRepository implements RepositoryContract
 {
+    /**
+     * The model instance.
+     *
+     * @var Model
+     */
     protected Model $model;
+    /**
+     * The relations to be eager loaded.
+     *
+     * @var mixed
+     */
+    protected mixed $relations = null;
+
+
+    /**
+     * BaseRepository constructor.
+     *
+     * @param Model $model The model instance to handle data operations.
+     */
     public function __construct(Model $model)
     {
         $this->model = $model;
     }
-
+    /**
+     * Set the relations to be eager loaded.
+     *
+     * @param array $relations
+     * @return void
+     */
+    public function setRelations(array $relations)
+    {
+        $this->relations = $relations;
+    }
     /**
      * Get all the models from the database.
      *
      * @return Collection
      */
-    public function all($relations = null): Collection
+    public function all(array $condition = null): Collection
     {
-        if($relations) return  $this->model->with($relations)->get();
-        return $this->model->all();
+        if($this->relations == null && $condition == null) return $this->model->all();
+        $model = $this->model;
+        if($this->relations != null) $model = $model->with($this->relations);
+        if($condition != null) {
+            $model = $model->whereHas($condition[0], function($query) use ($condition) {
+                $query->where($condition[1], $condition[2]);
+            });
+        }
+        return $model->get();
     }
 
     /**
@@ -32,6 +66,8 @@ class BaseRepository implements RepositoryContract
      */
     public function find(int $id): mixed
     {
+        if($this->relations != null) 
+            return $this->model->with($this->relations)->findOrFail($id);
         return $this->model->findOrFail($id);
     }
 

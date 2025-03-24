@@ -16,13 +16,18 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->service->all()->pagination(5);
+        $data = $this->service->all();
         if (str_contains($request->path(), 'admin')) {
+            $data = $data->pagination(5);
             return view('products.index', compact('data'));
         }
         return response()->json($data, 200);
     }
 
+    public function getProductsByTag(int $id)
+    {
+        return $this->service->getProductsByTag($id);
+    }
     public function show($id)
     {
         return $this->service->find($id);

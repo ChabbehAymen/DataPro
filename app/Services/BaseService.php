@@ -24,7 +24,6 @@ class BaseService implements ServiceContract
     {
         $this->repository = $repository;
     }
-
     /**
      * Retrieve all records, optionally with related models.
      *
@@ -32,7 +31,7 @@ class BaseService implements ServiceContract
      */
     public function all(): mixed
     {
-        return $this->repository->all(null);
+        return $this->repository->all();
     }
 
     /**
