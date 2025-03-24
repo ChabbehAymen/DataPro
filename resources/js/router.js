@@ -9,7 +9,7 @@ const routes = [
         path: '/profile',
         component: () => import('./pages/Profile.vue')
     },
-  
+
 ];
 
 export default createRouter({

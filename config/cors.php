@@ -16,8 +16,8 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
-    'allowed_origins' => ['http://127.0.0.1:8000'], // Adjust to match your Vue frontend URL
+    'paths' => ['api/*','sanctum/csrf-cookie'],
+    'allowed_origins' => ['*'], // Adjust to match your Vue frontend URL
 
 
     /*
@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'allowed_headers' => ['*'], // Allow all headers
+    'allowed_headers' => ['Content-Type', 'X-Requested-With', 'Authorization'], // Allow all headers
 
     /*
     |--------------------------------------------------------------------------
@@ -92,6 +92,6 @@ return [
     |
     */
 
-    'supports_credentials' => false, // Set to true if you need cookies to be sent with API requests
+    'supports_credentials' => true, // Set to true if you need cookies to be sent with API requests
 
 ];

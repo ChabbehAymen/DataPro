@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProfileController;
 
 Auth::routes();
 
@@ -26,3 +27,8 @@ Route::name('public')->resource('/categories', CategoryController::class);
 Route::get('/{vue_capture}', function () {
    return view('welcome');
 })->where('vue_capture', "[\/\w\.-]*")->name('vue');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
