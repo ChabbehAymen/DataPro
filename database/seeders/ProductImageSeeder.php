@@ -10,8 +10,8 @@ class ProductImageSeeder extends Seeder
     public function run()
     {
         DB::table('product_images')->insert([
-            ['product_id' => 1, 'img' => '/public/images/arm-site-img.png'],
-            ['product_id' => 2, 'img' => '/public/images/arm-site-img.png'],
+            ['product_id' => 1, 'img' => '/images/arm-site-img.png'],
+            ['product_id' => 2, 'img' => '/images/arm-site-img.png'],
         ]);
     }
 }

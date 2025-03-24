@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BasketController;
 use App\Http\Middleware\AdminAccess;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -18,7 +19,12 @@ Route::middleware(AdminAccess::class)->group(function () {
        return view('dashboard');
    })->name('dashboard');
 });
+Route::middleware('auth')->group(function () {
+   Route::resource('/basket', BasketController::class);
+});
 
+Route::get("/products/tag/{tag}", [ProductController::class, 'getProductsByTag'])->name('tag.products');
+Route::get("/products/category/{category}", [ProductController::class, 'getProductsByCategory'])->name('category.products');
 Route::name('public')->resource('/tags', TagsController::class);
 Route::name('public')->resource('products', ProductController::class);
 Route::name('public')->resource('/categories', CategoryController::class);
