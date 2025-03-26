@@ -49,6 +49,7 @@
 import { onMounted, ref, useTemplateRef } from "vue";
 import { getUser, toggleSidebar } from "../utils/utils";
 import { addProductToCard } from "../utils/api";
+import { fetchProductById } from "../utils/api";
 import axios from "axios";
 import Header from "../components/Header.vue";
 import SideBar from "../components/SideBar.vue";
@@ -63,14 +64,10 @@ const mainImage = useTemplateRef('mainImage');
 const subImage = useTemplateRef('subImage');
 
 // get product data 
-try {
-    axios.get(`/products/${props.id}`).then(function (response) {
-        product.value = response.data;
-    });
+fetchProductById(props.id).then((data) => {
+    product.value = data;
     selectedImg.value = product.value.product_image[0].id;
-} catch (error) {
-    console.error('[GET DATA]:: Something Went Wrong', error);
-}
+});
 
 const handleSideBarVisibility = () => {
     toggleSidebar(isSidebarOpen);

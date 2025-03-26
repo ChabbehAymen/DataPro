@@ -24,6 +24,7 @@ import Tag from "../components/Tag.vue";
 import Footer from "../components/Footer.vue";
 import { onMounted, ref } from "vue";
 import { getUser, toggleSidebar } from "../utils/utils";
+import { fetchProducts, fetchTags, fetchProductsByTag } from "../utils/api";
 import axios from "axios";
 
 const products = ref([]);
@@ -37,21 +38,13 @@ const handleSideBarVisibility = () => {
 };
 
 // get tags
-    try {
-        axios.get('/tags').then(function (response) {
-            tags.value = response.data;
-        });
-    } catch (e) {
-        console.error('[GET DATA]:: Something Went Wrong', e);
-    }
+fetchTags().then((data) => {
+    tags.value = data;
+});
 // get products
-    try {
-        axios.get('./products').then(function (response) {
-            products.value = response.data;
-        })
-    } catch (e) {
-        console.error('[GET DATA]:: Something Went Wrong', e);
-    }
+fetchProducts().then((data) => {
+    products.value = data;
+});
 
 const addProductToCart = (id) => {
     if (!isloged.value) window.location.href = '/login';
@@ -59,14 +52,10 @@ const addProductToCart = (id) => {
 
 // const filter by tag
 const selectTag = (id) => {
-    try {
-        axios.get(`/products/tag/${id}`).then(function (response) {
-            products.value = response.data;
-        });
-        selectTag.value = id;
-    } catch (e) {
-        console.error('[GET DATA]:: Something Went Wrong', e);
-    }
+    fetchProductsByTag(id).then((data) => {
+        products.value = data;
+    });
+    selectTag.value = id;
 };
 
 </script>

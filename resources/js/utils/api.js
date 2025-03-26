@@ -14,3 +14,47 @@ export function addProductToCard(id, user) {
         }
     } else window.location.href = '/login';
 }
+
+export async function fetchTags()
+{
+    try {
+        const response = await axios.get('/tags');
+        return response.data;
+    } catch (e) {
+        throwError(e);
+        return [];
+    }
+}
+
+export async function fetchProducts()
+{
+    try {
+        const response = await axios.get('/products');
+        return response.data;
+    } catch (e) {
+        throwError(e);
+        return [];
+    }
+}
+
+export async function fetchProductsByTag(id)
+{
+    try {
+        const response = await axios.get(`/products/tag/${id}`);
+        return response.data;
+    } catch (e) {
+        throwError(e);
+        return [];
+    }
+}
+
+export async function fetchProductById(id)
+{
+    try {
+        const response = await axios.get(`/products/${id}`);
+        return response.data;
+    } catch (e) {
+        throwError(e);
+        return [];
+    }
+}
