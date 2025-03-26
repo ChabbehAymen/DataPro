@@ -4,7 +4,7 @@
         <div class="rounded-2xl relative">
             <Tag v-if="props.product.tag.lenght > 0" :title="props.product.tag[0].title" :id="0" />
             <div :id="imageId"
-                class="h-[25vh] w-full bg-contain bg-no-repeat bg-center">
+                class="h-[30vh] w-full bg-contain bg-no-repeat bg-center">
             </div>
             <!-- <img class="h-[25vh] rounded-2xl w-full object-cover" src="/public/images/arm-site-img.png"> -->
         </div>
