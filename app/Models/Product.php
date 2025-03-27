@@ -60,8 +60,8 @@ class Product extends Model
      *
      * @return BelongsToMany
      */
-    public function tag(): BelongsToMany
+    public function tag(): HasMany
     {
-        return $this->belongsToMany(Tag::class,  'product_tags');
+        return $this->hasMany(Tag::class,  'product_tags');
     }
 }

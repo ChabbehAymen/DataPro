@@ -4,45 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Services\BasketService;
 use Illuminate\Http\Request;
-use Symfony\Contracts\Service\Attribute\Required;
 
 class BasketController extends Controller
 {
-    public function __construct(protected BasketService $Service){
-
+    public function __construct(protected BasketService $BasketService)
+    {
     }
 
-    public function index(){
-        return $this->service->all();
+    // List all baskets with pagination
+    public function index(Request $request)
+    {
+        $baskets = $this->BasketService->getAllBasketsPaginated();
+        $baskets->load('user', 'product'); 
+
+        if (str_contains($request->path(), 'admin')) {
+            return view('basket.index', compact('baskets'));
+        }
+
+        return response()->json($baskets, 200);
     }
 
-    public function show($id){
-        return $this->service->find($id);
+    public function showConfirmedBaskets()
+    {
+        $confirmedBaskets = $this->BasketService->getConfirmedBaskets();
+        return view('basket.confirmed', compact('confirmedBaskets'));
     }
 
 
-    public function store(Request $request){
-        if($this->service->create($request,
-            [
-                'quantity'=>'required|integer|min:1',
-                'date'=>'required|date',
-                'confirmed'=>'required|boolean',
-                'completed'=>'required|boolean',
-
-            ]))
-            return redirect(route(''));
-        else return redirect(route(''));
-
+    // Confirm the basket
+    public function confirmBasket($id)
+    {
+        $this->BasketService->confirmOrder($id);
+        return redirect()->route('baskets.index')->with('success', 'Basket confirmed!');
     }
 
-    public function update(Request $request, $id){
-        $this->service->update($request, $id);
-        return redirect(route(''));
-
-    }
-
-    public function destroy($id){
-        $this->service->delete($id);
-        return redirect(route(''));
+    // Complete the basket
+    public function completeBasket($id)
+    {
+        $this->BasketService->completeOrder($id);
+        return redirect()->route('baskets.index')->with('success', 'Basket completed!');
     }
 }
