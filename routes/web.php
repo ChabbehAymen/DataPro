@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Auth::routes();
 
@@ -14,10 +16,11 @@ Route::middleware(AdminAccess::class)->group(function () {
    Route::resource('/admin/tags', TagsController::class);
    Route::resource('/admin/products', ProductController::class);
    Route::resource('/admin/categories', CategoryController::class);
+   Route::resource('/admin/dashboard', DashboardController::class);
 
-   Route::get('/admin/dashboard', function () {
-       return view('dashboard');
-   })->name('dashboard');
+//    Route::get('/admin/dashboard', function () {
+//        return view('dashboard');
+//    })->name('dashboard');
 });
 Route::middleware('auth')->group(function () {
    Route::resource('/basket', BasketController::class);

@@ -82,4 +82,9 @@ class BaseService implements ServiceContract
         return $this->repository->delete($id);
     }
 
+    public function count(): int
+    {
+        return $this->repository->count();
+    }
+
 }
