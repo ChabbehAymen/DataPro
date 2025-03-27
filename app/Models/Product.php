@@ -48,11 +48,11 @@ class Product extends Model
     /**
      * Product relation to Basket
      *
-     * @return BelongsTo
+     * @return belongsToMany
      */
-    public function basket(): BelongsTo
+    public function basket(): belongsToMany
     {
-        return $this->belongsTo(Basket::class);
+        return $this->belongsToMany(Basket::class);
     }
 
     /**
@@ -60,8 +60,8 @@ class Product extends Model
      *
      * @return BelongsToMany
      */
-    public function tag(): HasMany
+    public function tag(): belongsToMany
     {
-        return $this->hasMany(Tag::class,  'product_tags');
+        return $this->belongsToMany(Tag::class,  'product_tags','product_id', 'tag_id');
     }
 }
