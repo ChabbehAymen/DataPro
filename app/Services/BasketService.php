@@ -1,7 +1,5 @@
 <?php
 
-// BasketService.php
-
 namespace App\Services;
 
 use App\Repository\BasketRepository;
@@ -13,13 +11,10 @@ class BasketService extends BaseService
     {
         parent::__construct($repository);
     }
-    
-    // Confirm the basket
+
     public function confirmOrder($id)
     {
-        $basket = $this->repository->find($id);
-        
-        if ($basket) {
+        if ($basket = $this->repository->find($id)) {
             $basket->confirmed = true;
             $basket->save();
         }
@@ -30,13 +25,9 @@ class BasketService extends BaseService
         return Basket::where('confirmed', true)->with(['user', 'product'])->get();
     }
 
-
-    // Complete the basket
     public function completeOrder($id)
     {
-        $basket = $this->repository->find($id);
-
-        if ($basket) {
+        if ($basket = $this->repository->find($id)) {
             $basket->completed = true;
             $basket->save();
         }
@@ -44,7 +35,6 @@ class BasketService extends BaseService
 
     public function getAllBasketsPaginated($perPage = 5)
     {
-        return Basket::paginate($perPage); 
+        return Basket::paginate($perPage);
     }
 }
-

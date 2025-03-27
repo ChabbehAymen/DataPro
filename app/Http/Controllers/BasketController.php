@@ -7,14 +7,11 @@ use Illuminate\Http\Request;
 
 class BasketController extends Controller
 {
-    public function __construct(protected BasketService $BasketService)
-    {
-    }
+    public function __construct(protected BasketService $basketService) {}
 
-    // List all baskets with pagination
     public function index(Request $request)
     {
-        $baskets = $this->BasketService->getAllBasketsPaginated();
+        $baskets = $this->basketService->getAllBasketsPaginated();
         $baskets->load('user', 'product'); 
 
         if (str_contains($request->path(), 'admin')) {
@@ -26,22 +23,19 @@ class BasketController extends Controller
 
     public function showConfirmedBaskets()
     {
-        $confirmedBaskets = $this->BasketService->getConfirmedBaskets();
+        $confirmedBaskets = $this->basketService->getConfirmedBaskets();
         return view('basket.confirmed', compact('confirmedBaskets'));
     }
 
-
-    // Confirm the basket
     public function confirmBasket($id)
     {
-        $this->BasketService->confirmOrder($id);
+        $this->basketService->confirmOrder($id);
         return redirect()->route('baskets.index')->with('success', 'Basket confirmed!');
     }
 
-    // Complete the basket
     public function completeBasket($id)
     {
-        $this->BasketService->completeOrder($id);
+        $this->basketService->completeOrder($id);
         return redirect()->route('baskets.index')->with('success', 'Basket completed!');
     }
 }
