@@ -3,7 +3,6 @@
       <section class="profile-header">
         <div class="container">
           <h1 v-if="user && user.full_name">{{ user.full_name }}</h1>
-          <h1 v-else>Loading...</h1>
         </div>
       </section>
 
@@ -66,19 +65,19 @@
 
               <!-- Password Update Form -->
               <div class="card mt-4">
-                <div class="card-header">
+                <!-- <div class="card-header">
                   <h3>Update Password</h3>
                   <p class="text-muted">Ensure your account is using a secure password</p>
-                </div>
-                <div class="card-body">
+                </div> -->
+                <!-- <div class="card-body"> -->
                   <!-- <div v-if="passwordSuccess" class="alert alert-success" role="alert">
                     {{ passwordSuccess }}
                   </div> -->
 
-                  <form @submit.prevent="updatePassword">
+                  <!-- <form @submit.prevent="updatePassword"> -->
                     <!-- Current Password -->
-                    <div class="form-group mb-3">
-                      <label for="current_password">Current Password</label>
+                    <!-- <div class="form-group mb-3"> -->
+                      <!-- <label for="current_password">Current Password</label> -->
                       <!-- <input
                         type="password"
                         id="current_password"
@@ -88,11 +87,11 @@
                       <!-- <p v-if="passwordErrors.current_password" class="text-danger mt-1">
                         {{ passwordErrors.current_password }}
                       </p> -->
-                    </div>
+                    <!-- </div>  -->
 
                     <!-- New Password -->
-                    <div class="form-group mb-3">
-                      <label for="password">New Password</label>
+                    <!-- <div class="form-group mb-3">
+                      <label for="password">New Password</label> -->
                       <!-- <input
                         type="password"
                         id="password"
@@ -102,7 +101,7 @@
                       <!-- <p v-if="passwordErrors.password" class="text-danger mt-1">
                         {{ passwordErrors.password }}
                       </p> -->
-                    </div>
+                    <!-- </div> -->
 
                     <!-- Confirm Password -->
                     <!-- <div class="form-group mb-3">
@@ -119,8 +118,8 @@
                       <span v-if="isUpdatingPassword">Updating...</span>
                       <span v-else>Update Password</span>
                     </button> -->
-                  </form>
-                </div>
+                  <!-- </form> -->
+                <!-- </div> -->
               </div>
             </div>
 
@@ -235,7 +234,7 @@
                 const updatedUser = await updateUser(this.form); // Pass `this.form` to the function
 
                 if (updatedUser) {
-                    this.user = updatedUser;
+                    await this.showUser();
                     alert("Profile updated successfully!");
                 } else {
                     alert("Something went wrong. Try again.");
@@ -262,6 +261,7 @@
     margin-bottom: 1.5rem;
     border: none;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+
   }
 
   .card-header {
