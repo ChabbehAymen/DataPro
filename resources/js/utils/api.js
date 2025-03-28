@@ -1,22 +1,16 @@
 import axios from 'axios';
+import { getcsrfToken } from './utils';
 
 function throwError(error) {
     console.error('[GET DATA]:: Something Went Wrong', error);
 }
-export function addProductToCard(id, user) {
-    if (user.bool) {
-        try {
-            axios.post(`/cart/${id}`).then(response => {
-                console.log(response.data);
-            });
-        } catch (error) {
-            throwError(error);
-        }
-    } else window.location.href = '/login';
-}
 
-export async function fetchTags()
-{
+/**
+ * Fetch all tags from the server.
+ *
+ * @return {Promise<Array>} An array of tags.
+ */
+export async function fetchTags() {
     try {
         const response = await axios.get('/tags');
         return response.data;
@@ -26,8 +20,28 @@ export async function fetchTags()
     }
 }
 
-export async function fetchProducts()
-{
+
+/**
+ * Fetch all categories from the server.
+ *
+ * @return {Promise<Array>} An array of categories.
+ * */
+export async function fetchCategories() {
+    try {
+        const response = await axios.get('/categories');
+        return response.data;
+    } catch (e) {
+        throwError(e);
+        return [];
+    }
+}
+
+/**
+ * Fetch all products from the server.
+ *
+ * @return {Promise<Array>} An array of products.
+ */
+export async function fetchProducts() {
     try {
         const response = await axios.get('/products');
         return response.data;
@@ -37,8 +51,13 @@ export async function fetchProducts()
     }
 }
 
-export async function fetchProductsByTag(id)
-{
+/**
+ * Fetch products by a specific tag ID.
+ *
+ * @param {number} id - The ID of the tag.
+ * @return {Promise<Array>} An array of products associated with the tag.
+ */
+export async function fetchProductsByTag(id) {
     try {
         const response = await axios.get(`/products/tag/${id}`);
         return response.data;
@@ -48,13 +67,51 @@ export async function fetchProductsByTag(id)
     }
 }
 
-export async function fetchProductById(id)
-{
+/**
+ * Fetch a product by its ID.
+ *
+ * @param {number} id - The ID of the product.
+ * @return {Promise<Object>} The product data.
+ */
+export async function fetchProductById(id) {
     try {
         const response = await axios.get(`/products/${id}`);
         return response.data;
     } catch (e) {
         throwError(e);
         return [];
+    }
+}
+
+/**
+ * Add a product to the user's cart.
+ *
+ * @param {number} id - The ID of the product.
+ * @param {Object} user - The user object.
+ */
+export async function addProductToCard(id) {
+    try {
+        const csrfToken = getcsrfToken(); // Get the CSRF token
+        const response = await axios.post('/basket', { product_id: id }, {
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throwError(error);
+    }
+}
+
+/**
+ * Login the user out
+ *
+ * */
+export async function logout() {
+    try {
+        const response = await axios.post('/logout');
+        return response.data;
+    } catch (error) {
+        throwError(error);
     }
 }

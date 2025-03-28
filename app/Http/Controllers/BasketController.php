@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BasketRequest;
 use App\Services\BasketService;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class BasketController extends Controller
 {
-    public function __construct(protected BasketService $Service){
+    public function __construct(protected BasketService $service){
 
     }
 
@@ -21,17 +22,10 @@ class BasketController extends Controller
     }
 
 
-    public function store(Request $request){
-        if($this->service->create($request,
-            [
-                'quantity'=>'required|integer|min:1',
-                'date'=>'required|date',
-                'confirmed'=>'required|boolean',
-                'completed'=>'required|boolean',
-
-            ]))
-            return redirect(route(''));
-        else return redirect(route(''));
+    public function store(BasketRequest $request){
+        if($this->service->create($request))
+            return response()->json(["message"=>"Item Added To Basket"], 200);
+        else response()->json(["Error Someting Went Wrong"], 200);
 
     }
 

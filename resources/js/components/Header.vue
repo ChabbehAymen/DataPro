@@ -1,6 +1,5 @@
 <template>
-    <div class="flex flex-col">
-        <!-- Navbar (Always Visible) -->
+    <div class=" fixed top-0 w-[100vw] z-50 flex flex-col">
         <header class="bg-white shadow-md p-3 flex items-center justify-between md:pl-4">
             <div class="flex items-center w-full">
                 <div class="flex items-center">
@@ -76,7 +75,7 @@
                     </div>
 
                 </div>
-                <button v-show="props.isloged == false" @click="login"
+                <button v-show="props.isloged == false" @click="()=>{navigate('/login')}"
                     class="cursor-pointer flex items-center gap-1 text-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -87,7 +86,7 @@
                     </svg>
                     Login
                 </button>
-                <span v-show="props.isloged" @click="profile">
+                <span v-show="props.isloged" @click="()=>{navigate('/profile')}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:opacity-50" fill="none"
                         viewBox="0 0 24 24" stroke="black">
                         <!-- Head -->
@@ -100,7 +99,7 @@
                     </svg>
 
                 </span>
-                <span v-show="props.isloged">
+                <span v-show="props.isloged" @click="()=>{navigate('/commande')}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:opacity-50" fill="none"
                         viewBox="0 0 24 24" stroke="black">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -113,7 +112,8 @@
 </template>
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import axios from "axios";
+import { navigate } from "../utils/utils";
+import { fetchCategories, logout } from '../utils/api';
 
 const isMenuOpen = ref(false);
 const categories = ref([]);
@@ -122,25 +122,14 @@ const props = defineProps(['isloged']);
 const emit = defineEmits(['toggleSidebar']);
 
 
-// navigate to login
-const login = () => {
-    window.location.href = '/login';
-}
-// navigate to profile
-const profile = () => {
-    window.location.href = '/profile';
-}
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
 };
-const getCategories = async () => {
-    try {
-        axios.get('/categories').then(function (response) {
-            categories.value = response.data.data;
-        });
-    } catch (e) {
-        console.error('[GET DATA]:: Something Went Wrong', e);
-    }
+
+const getCategories =  () => {
+    fetchCategories().then((data)=>{
+        categories.value = data;
+    })
 }
 onMounted(() => {
     getCategories();

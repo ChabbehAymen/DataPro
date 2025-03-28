@@ -17,8 +17,8 @@ class CreateBasketsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity');
-            $table->date('date');
+            // $table->integer('quantity');
+            $table->date('date')->default(now());
             $table->boolean('confirmed')->default(false);
             $table->boolean('completed')->default(false);
             $table->timestamps();

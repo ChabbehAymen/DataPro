@@ -15,6 +15,11 @@ const routes = [
         props: true
     },
     {
+        path: '/commande',
+        component: () => import('./pages/CommandePage.vue'),
+        props: true
+    },
+    {
         path: '/about',
         component: ""//() => import('./pages/About.vue')
     },

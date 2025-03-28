@@ -13,7 +13,7 @@ class BasketSeeder extends Seeder
             [
                 'user_id' => 1,
                 'product_id' => 1,
-                'quantity' => 2,
+                // 'quantity' => 2,
                 'date' => now(),
                 'confirmed' => false,
                 'completed' => false,
