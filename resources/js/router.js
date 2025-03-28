@@ -10,6 +10,16 @@ const routes = [
         component: () => import('./pages/Profile.vue')
     },
 
+    {
+        path: '/product/:id',
+        component: () => import('./pages/ProductDetails.vue'),
+        props: true
+    },
+    {
+        path: '/about',
+        component: ""//() => import('./pages/About.vue')
+    },
+
 ];
 
 export default createRouter({

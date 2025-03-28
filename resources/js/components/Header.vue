@@ -8,15 +8,14 @@
                         class="text-gray-700 text-2xl p-2 focus:outline-none md:hidden">
                         &#9776;
                     </button>
-                    <h3 class="font-bold text-gray-900 dark:text-gray-100">DataPro<span style="color: #FF7F50;">.</span>
-                    </h3>
+                    <a class="font-bold text-3xl no-underline text-gray-900 dark:text-gray-100" href="/">DataPro<span
+                            style="color: #FF7F50;">.</span>
+                    </a>
                 </div>
-                <nav class=" flex items-center w-full pb-0 ">
+                <nav class="hidden sm:flex items-center w-full pb-0">
                     <a class="no-underline text-black px-4 py-2 mt-2 text-sm font-semibold md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                        href="#">About</a>
-                    <a class="no-underline text-black px-4 py-2 mt-2 text-sm font-semibold md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                        href="#">What's New</a>
-                    <div class="relative">
+                        href="/">Home</a>
+                    <div class="relative ">
                         <button @click="toggleMenu"
                             class="text-gray-900 bg-gray-200 items-center px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                             style="display: flex;">
@@ -52,12 +51,16 @@
                             </div>
                         </div>
                     </div>
+                    <a class="no-underline text-black px-4 py-2 mt-2 text-sm font-semibold md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                        href="#">What's New</a>
+                    <a class="no-underline text-black px-4 py-2 mt-2 text-sm font-semibold md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                        href="#">About</a>
                 </nav>
             </div>
 
             <div class="flex items-center gap-3">
                 <!-- Search Bar -->
-                <div class='w-full max-w-sm bg-gray-100 rounded-3xl'>
+                <div class='hidden sm:block w-full max-w-sm bg-gray-100 rounded-3xl'>
                     <div
                         class="flex items-center px-3.5 py-1 text-gray-400 group focus-within:!ring-2 focus-within:!ring-blue-500 rounded-full">
                         <svg class="mr-2 h-5 w-5 stroke-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="2">
@@ -73,7 +76,8 @@
                     </div>
 
                 </div>
-                <button v-show="isloged==false" @click="login" class="cursor-pointer flex items-center gap-1 text-gray-700">
+                <button v-show="props.isloged == false" @click="login"
+                    class="cursor-pointer flex items-center gap-1 text-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-log-in mr-2">
@@ -83,7 +87,7 @@
                     </svg>
                     Login
                 </button>
-                <span v-show="isloged" @click="profile">
+                <span v-show="props.isloged" @click="profile">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:opacity-50" fill="none"
                         viewBox="0 0 24 24" stroke="black">
                         <!-- Head -->
@@ -96,7 +100,7 @@
                     </svg>
 
                 </span>
-                <span v-show="isloged">
+                <span v-show="props.isloged">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:opacity-50" fill="none"
                         viewBox="0 0 24 24" stroke="black">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -112,16 +116,12 @@ import { computed, onMounted, ref } from "vue";
 import axios from "axios";
 
 const isMenuOpen = ref(false);
-const isloged = ref(false);
 const categories = ref([]);
-const emit = defineEmits(['toggleSidebar']);
 const iconRotation = computed(() => isMenuOpen.value ? 'rotate-180' : 'rotate-0');
+const props = defineProps(['isloged']);
+const emit = defineEmits(['toggleSidebar']);
 
-// get user data from meta tag
-const logedData = document.querySelector('meta[name="user"]').getAttribute('content');
-if (logedData) {
-    isloged.value = JSON.parse(logedData);
-}
+
 // navigate to login
 const login = () => {
     window.location.href = '/login';

@@ -18,16 +18,11 @@
                   <p class="text-muted">Update your account's profile information</p>
                 </div>
                 <div class="card-body">
-                  <div v-if="successMessage" class="alert alert-success" role="alert">
+                  <!-- <div v-if="successMessage" class="alert alert-success" role="alert">
                     {{ successMessage }}
-                  </div>
+                  </div> -->
 
                   <form @submit.prevent="updateProfile">
-                    <!-- Avatar Upload -->
-                    <div class="form-group mb-4">
-
-                    </div>
-
                     <!-- Name -->
                     <div class="form-group mb-3">
                       <label for="name">Name</label>
@@ -37,7 +32,7 @@
                         v-model="form.full_name"
                         class="form-control"
                         required>
-                      <p v-if="errors.name" class="text-danger mt-1">{{ errors.name }}</p>
+                      <!-- <p v-if="errors.name" class="text-danger mt-1">{{ errors.name }}</p> -->
                     </div>
 
                     <!-- Email -->
@@ -49,16 +44,21 @@
                         v-model="form.email"
                         class="form-control"
                         required>
-                      <p v-if="errors.email" class="text-danger mt-1">{{ errors.email }}</p>
+                      <!-- <p v-if="errors.email" class="text-danger mt-1">{{ errors.email }}</p> -->
                     </div>
-
-
-
-
-
-                    <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                      <span v-if="isSubmitting">Saving...</span>
-                      <span v-else>Save Profile</span>
+                    <!-- Phone Number -->
+                    <div class="form-group mb-3">
+                      <label for="email">Phone Number</label>
+                      <input
+                        type="text"
+                        id="email"
+                        v-model="form.phone_number"
+                        class="form-control"
+                        required>
+                      <!-- <p v-if="errors.email" class="text-danger mt-1">{{ errors.email }}</p> -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Save Profile
                     </button>
                   </form>
                 </div>
@@ -71,41 +71,41 @@
                   <p class="text-muted">Ensure your account is using a secure password</p>
                 </div>
                 <div class="card-body">
-                  <div v-if="passwordSuccess" class="alert alert-success" role="alert">
+                  <!-- <div v-if="passwordSuccess" class="alert alert-success" role="alert">
                     {{ passwordSuccess }}
-                  </div>
+                  </div> -->
 
                   <form @submit.prevent="updatePassword">
                     <!-- Current Password -->
                     <div class="form-group mb-3">
                       <label for="current_password">Current Password</label>
-                      <input
+                      <!-- <input
                         type="password"
                         id="current_password"
                         v-model="passwordForm.current_password"
                         class="form-control"
-                        required>
-                      <p v-if="passwordErrors.current_password" class="text-danger mt-1">
+                        required> -->
+                      <!-- <p v-if="passwordErrors.current_password" class="text-danger mt-1">
                         {{ passwordErrors.current_password }}
-                      </p>
+                      </p> -->
                     </div>
 
                     <!-- New Password -->
                     <div class="form-group mb-3">
                       <label for="password">New Password</label>
-                      <input
+                      <!-- <input
                         type="password"
                         id="password"
                         v-model="passwordForm.password"
                         class="form-control"
-                        required>
-                      <p v-if="passwordErrors.password" class="text-danger mt-1">
+                        required> -->
+                      <!-- <p v-if="passwordErrors.password" class="text-danger mt-1">
                         {{ passwordErrors.password }}
-                      </p>
+                      </p> -->
                     </div>
 
                     <!-- Confirm Password -->
-                    <div class="form-group mb-3">
+                    <!-- <div class="form-group mb-3">
                       <label for="password_confirmation">Confirm New Password</label>
                       <input
                         type="password"
@@ -113,12 +113,12 @@
                         v-model="passwordForm.password_confirmation"
                         class="form-control"
                         required>
-                    </div>
+                    </div> -->
 
-                    <button type="submit" class="btn btn-primary" :disabled="isUpdatingPassword">
+                    <!-- <button type="submit" class="btn btn-primary" :disabled="isUpdatingPassword">
                       <span v-if="isUpdatingPassword">Updating...</span>
                       <span v-else>Update Password</span>
-                    </button>
+                    </button> -->
                   </form>
                 </div>
               </div>
@@ -127,16 +127,30 @@
             <!-- Profile Sidebar -->
             <div class="col-md-4">
               <div class="card">
-                <div class="card-body text-center">
-                  <!-- <img :src="user.avatar || '/images/default-avatar.png'"
+                <div class="card-body">
+                  <img :src="user.picture"
                        class="rounded-circle mb-3"
-                       width="128"
-                       height="128"
-                       alt="Profile Avatar"> -->
+                       width="28"
+                       height="28"
+                       >
 
-                       <div class="card-body text-center" v-if="user && user.created_at">
-                        <h4>{{ user.full_name }}</h4>
-                        <p class="text-muted">Joined {{ formatDate(user.created_at) }}</p>
+                       <div class="card-body" v-if="user && user.full_name">
+                        <!-- Full name -->
+                        <div class="flex flex-row space-x-3">
+                            <h4>Full Name:</h4>
+                            <h5 >{{ user.full_name }}</h5>
+                        </div>
+                        <!-- Email -->
+                        <div class="flex flex-row space-x-3">
+                            <h4>Email:</h4>
+                            <h5>{{ user.email }}</h5>
+                        </div>
+                        <!-- Phone number -->
+                        <div class="flex flex-row space-x-3">
+                            <h4>Phone:</h4>
+                            <h5>{{ user.phone_number }}</h5>
+                        </div>
+                        <!-- <p class="text-muted">Joined {{ formatDate(user.created_at) }}</p> -->
                        </div>
 
 
@@ -150,8 +164,7 @@
   </template>
 
   <script>
-  import api from '@/services/api.js';
-  import axios from 'axios';
+  import { fetchUser, updateUser } from '../utils/api.js';
 
 
   export default {
@@ -161,185 +174,79 @@
         user: {
         full_name: '',
         email: '',
-        created_at: null
+        phone_number:'',
+        picture:'',
+        created_at: '',
         },
+
         form: {
         full_name: '',
         email: '',
+        phone_number:'',
+        picture:'',
         },
-        passwordForm: {
-          current_password: '',
-          password: '',
-          password_confirmation: ''
-        },
-        errors: {},
-        passwordErrors: {},
-        successMessage: '',
-        passwordSuccess: '',
-        isSubmitting: false,
-        isUpdatingPassword: false,
-        avatarPreview: null,
-        avatarError: ''
       };
     },
     created() {
-      this.fetchUserProfile();
+      this.showUser();
     },
     methods: {
-        fetchUserProfile() {
-    console.log("Attempting to fetch profile...");
-    api.getProfile('/user')
-        .then(response => {
-        console.log("Response type:", typeof response.data);
-        console.log("Raw API response:", response);
+        showUser() {
+            fetchUser()
+            .then(response => {
+            // console.log("Response type:", typeof response);
+            // console.log("Raw API response:", response);
 
-      // If response is HTML string instead of JSON object
-      if (typeof response.data === 'string' && response.data.includes('<!DOCTYPE html>')) {
-        console.error("Received HTML instead of JSON!");
-        // Try to extract user data from meta tag if available
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(response.data, 'text/html');
-        const userMeta = doc.querySelector('meta[name="user"]');
+            // Directly set user data
+            this.user = response;
 
-        if (userMeta && userMeta.content) {
-          try {
-            const userData = JSON.parse(userMeta.content);
-            console.log("Extracted user data from meta tag:", userData);
-            this.user = userData;
-            this.form.full_name = this.user.full_name || '';
-            this.form.email = this.user.email || '';
-          } catch (e) {
-            console.error("Failed to parse user data from meta tag:", e);
-          }
-        }
-      } else if (response.data && response.data.user) {
-        this.user = response.data.user;
-        this.form.full_name = this.user.full_name || '';
-        this.form.email = this.user.email || '';
-        console.log("User data set:", this.user);
-      } else if (response.data && typeof response.data === 'object') {
-        // Maybe the user data is directly in response.data
-        console.log("Trying to use response.data directly:", response.data);
-        this.user = response.data;
-        this.form.full_name = this.user.full_name || '';
-        this.form.email = this.user.email || '';
-      } else {
-        console.error("Unexpected API response format:", response.data);
-      }
-    })
-    .catch(error => {
-      console.error("Error fetching profile:", error);
-      if (error.response) {
-        console.error("Status:", error.response.status);
-        console.error("Data:", error.response.data);
-      }
-    });
+            // Populate form with user data
+            this.form.full_name = response.full_name || '';
+            this.form.email = response.email || '';
+            this.form.phone_number = response.phone_number || '';
+            this.form.picture = response.picture || '';
+            // console.log("Updated user data:", this.user);
+            // console.log("Updated form data:", this.form);
+            })
+            .catch(error => {
+            console.error("Error fetching profile:", error);
+            if (error.response) {
+                console.error("Status:", error.response.status);
+                console.error("Data:", error.response.data);
+            }
+            });
         },
 
+  // Optional: Add a method to format date
+        formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            return new Date(dateString).toLocaleDateString();
+        },
+        // update profile
+        async updateProfile() {
+            try {
+                if (!this.form.full_name || !this.form.email || !this.form.phone_number) {
+                    alert("Please fill in all required fields.");
+                    return;
+                }
 
-      updateProfile() {
-        this.isSubmitting = true;
-        this.errors = {};
-        this.successMessage = '';
+                console.log("Updating profile with:", this.form);
 
-        api.updateProfile(this.form)
-          .then(response => {
-            this.user = response.data.user;
-            this.successMessage = response.data.message;
-            window.scrollTo(0, 0);
-          })
-          .catch(error => {
-            if (error.response && error.response.data && error.response.data.errors) {
-              this.errors = error.response.data.errors;
-            } else {
-              console.error('Error updating profile:', error);
+                const updatedUser = await updateUser(this.form); // Pass `this.form` to the function
+
+                if (updatedUser) {
+                    this.user = updatedUser;
+                    alert("Profile updated successfully!");
+                } else {
+                    alert("Something went wrong. Try again.");
+                }
+            } catch (error) {
+                console.error("Profile update error:", error);
+                alert("Failed to update profile.");
             }
-          })
-          .finally(() => {
-            this.isSubmitting = false;
-          });
-      },
-      handleAvatarChange(event) {
-        const file = event.target.files[0];
-        if (!file) return;
+    }
 
-        // Validate file
-        if (!file.type.match('image.*')) {
-          this.avatarError = 'Please select an image file';
-          return;
-        }
 
-        if (file.size > 1024 * 1024) {
-          this.avatarError = 'Image should not exceed 1MB';
-          return;
-        }
-
-        this.avatarError = '';
-
-        // Create preview
-        const reader = new FileReader();
-        reader.onload = e => {
-          this.avatarPreview = e.target.result;
-        };
-        reader.readAsDataURL(file);
-
-        // Upload avatar
-        const formData = new FormData();
-        formData.append('avatar', file);
-
-        api.uploadAvatar(formData)
-          .then(response => {
-            this.user.avatar = response.data.avatar_url;
-            this.successMessage = response.data.message;
-            window.scrollTo(0, 0);
-          })
-          .catch(error => {
-            if (error.response && error.response.data && error.response.data.errors) {
-              this.avatarError = error.response.data.errors.avatar[0];
-            } else {
-              console.error('Error uploading avatar:', error);
-              this.avatarError = 'Error uploading avatar';
-            }
-          });
-      },
-      updatePassword() {
-        this.isUpdatingPassword = true;
-        this.passwordErrors = {};
-        this.passwordSuccess = '';
-
-        api.updatePassword(this.passwordForm)
-          .then(response => {
-            this.passwordSuccess = response.data.message;
-            this.passwordForm.current_password = '';
-            this.passwordForm.password = '';
-            this.passwordForm.password_confirmation = '';
-            window.scrollTo(0, 0);
-          })
-          .catch(error => {
-            if (error.response && error.response.data && error.response.data.errors) {
-              this.passwordErrors = error.response.data.errors;
-            } else {
-              console.error('Error updating password:', error);
-            }
-          })
-          .finally(() => {
-            this.isUpdatingPassword = false;
-          });
-      },
-      formatDate(dateString) {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-      },
-      formatWebsite(url) {
-        if (!url) return '';
-        try {
-          const urlObj = new URL(url);
-          return urlObj.hostname;
-        } catch (e) {
-          return url;
-        }
-      }
     }
   };
   </script>
