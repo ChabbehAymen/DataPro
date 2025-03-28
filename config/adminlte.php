@@ -391,6 +391,24 @@ return [
                 ],
             ],
         ],
+[
+    'text' => 'Orders',
+    'icon' => 'fas fa-cart-plus', 
+    'label' => (isset($baskets) ? sizeof($baskets) : 0),
+    'label_color' => 'info',
+    'submenu' => [
+        [
+            'text' => 'List Orders',
+            'url' => '/admin/baskets',
+            'icon' => 'fas fa-list-ul', 
+        ],
+        [
+            'text' => 'Confirm Orders',
+            'url' => '/baskets/confirmed',
+            'icon' => 'fas fa-check-circle',
+        ],
+    ],
+],
     ],
 
     /*
