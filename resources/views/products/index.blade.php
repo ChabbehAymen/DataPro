@@ -21,12 +21,13 @@
                 </div>
             </div>
         </div>
+
         <div class="container-fluid">
             <div class="row mb-2 justify-content-end">
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <a href="{{ Route('products.create') }}" class="btn btn-primary btn-sm p-2 text-white"><i
-                                class="fas fa-plus"></i> Ajouter product</a>
+                            class="fas fa-plus"></i> Ajouter product</a>
                     </ol>
                 </div>
             </div>

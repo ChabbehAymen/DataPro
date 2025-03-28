@@ -8,15 +8,17 @@ use Illuminate\Database\Eloquent\Collection;
 
 class BasketRepository extends BaseRepository
 {
-
     public function __construct(Basket $model){
         parent::__construct($model);
     }
-    public function CompletedOrders(){
-        $this->model->where('completed', '1')->get();
+    public function CompletedOrders():int
+    {
+        return $this->model->where('completed', true)->count();
+
     }
-    public function ConfimedOrders(){
-        $this->model->where('confirmed', true)->count();
+    public function ConfimedOrders():int
+    {
+        return $this->model->where('confirmed', true)->count();
     }
 }
 

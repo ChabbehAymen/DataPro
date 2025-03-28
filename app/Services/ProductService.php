@@ -61,11 +61,12 @@ class ProductService extends BaseService
     public function create(FormRequest $request): bool
     {
         $data = $request->validated();
+
         $product = $this->repository->create($data);
-        if($product) 
+        if($product)
         {
             $product->category()->attach($request->input('category'));
-            if(!empty($request->input('tags'))) 
+            if(!empty($request->input('tags')))
             {
                 $product->tag()->attach($request->input('tags'));
             }
@@ -73,4 +74,27 @@ class ProductService extends BaseService
         }
         return false;
     }
+    /**
+     * Update an existing product by its ID.
+     *
+     * @param FormRequest $request
+     * @return bool
+     */
+    public function update(int $id, FormRequest $request)
+    {
+        $data = $request->validated();
+        $product = $this->repository->find($id);
+        $product->update($data);
+        if($product)
+        {
+            $product->category()->sync($request->input('category'));
+            if(!empty($request->input('tags')))
+            {
+                $product->tag()->sync($request->input('tags'));
+            }
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -12,10 +12,13 @@ class BasketService extends BaseService
         parent::__construct($repository);
     }
 
-    public function CompletedOrders(){
-        $this->repository->CompletedOrders();
+    public function CompletedOrders()
+    {
+        return $this->repository->CompletedOrders();
+
     }
-    public function ConfimedOrders(){
-        $this->repository->ConfimedOrders();
+    public function ConfimedOrders()
+    {
+        return $this->repository->ConfimedOrders();
     }
 }

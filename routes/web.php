@@ -16,7 +16,7 @@ Route::middleware(AdminAccess::class)->group(function () {
    Route::resource('/admin/tags', TagsController::class);
    Route::resource('/admin/products', ProductController::class);
    Route::resource('/admin/categories', CategoryController::class);
-   Route::resource('/admin/dashboard', DashboardController::class);
+   Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 //    Route::get('/admin/dashboard', function () {
 //        return view('dashboard');
