@@ -24,6 +24,27 @@ class ProductSeeder extends Seeder
                 'created_at'=>now(),
                 'updated_at'=>now()
             ],
+            [
+                'title' => 'Product A',
+                'desc' => 'Description for Product A.',
+                'price' => 900,
+                'created_at'=>now(),
+                'updated_at'=>now()
+            ],
+            [
+                'title' => 'Product B',
+                'desc' => 'Description for Product B.',
+                'price' => 8000,
+                'created_at'=>now(),
+                'updated_at'=>now()
+            ],
+            [
+                'title' => ' Product C',
+                'desc' => 'Description for Product C.',
+                'price' => 8800,
+                'created_at'=>now(),
+                'updated_at'=>now()
+            ],
         ]);
     }
 }

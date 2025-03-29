@@ -30,10 +30,10 @@ class Basket extends Model
     /**
      * Basket relation to Product
      *
-     * @return HasOne
+     * @return BelongsTo
      */
-   public function product(): hasOne
+   public function product(): belongsTo
    {
-       return $this->hasOne(Product::class);
+       return $this->belongsTo(Product::class);
    }
 }
