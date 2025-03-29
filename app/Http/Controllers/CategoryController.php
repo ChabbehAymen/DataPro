@@ -15,6 +15,7 @@ class CategoryController extends Controller
     public function index(Request $request){
         $data = $this->service->all();
         if (str_contains($request->path(), 'admin')) {
+            $data = $data->pagination(5);
             return view('category.index', compact('data'));
         }
         return response()->json($data, 200);

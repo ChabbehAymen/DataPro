@@ -11,6 +11,13 @@ class BasketService extends BaseService
     {
         parent::__construct($repository);
     }
+    public function create( FormRequest $request): bool
+    {
+        $data = $request->validated();
+        $data["user_id"] = auth()->user()->id;
+        if($this->repository->create($data)) return true;
+        return false;
+    }
 
     public function confirmOrder($id)
     {

@@ -15,7 +15,7 @@ class CategoryService extends BaseService
 
     public function all(): mixed
     {
-        return $this->repository->all()->pagination(5);
+        return $this->repository->all();
     }
 
     public function create(FormRequest $request): bool

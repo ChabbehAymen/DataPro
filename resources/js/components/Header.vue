@@ -1,6 +1,5 @@
 <template>
-    <div class="flex flex-col">
-        <!-- Navbar (Always Visible) -->
+    <div class=" fixed top-0 w-[100vw] z-50 flex flex-col">
         <header class="bg-white shadow-md p-3 flex items-center justify-between md:pl-4">
             <div class="flex items-center w-full">
                 <div class="flex items-center">
@@ -58,7 +57,7 @@
                 </nav>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 pr-3">
                 <!-- Search Bar -->
                 <div class='hidden sm:block w-full max-w-sm bg-gray-100 rounded-3xl'>
                     <div
@@ -76,7 +75,7 @@
                     </div>
 
                 </div>
-                <button v-show="props.isloged == false" @click="login"
+                <button v-show="props.isloged == false" @click="() => { navigate('/login') }"
                     class="cursor-pointer flex items-center gap-1 text-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -87,7 +86,7 @@
                     </svg>
                     Login
                 </button>
-                <span v-show="props.isloged" @click="profile">
+                <span v-show="props.isloged" @click="() => { navigate('/profile') }">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:opacity-50" fill="none"
                         viewBox="0 0 24 24" stroke="black">
                         <!-- Head -->
@@ -100,12 +99,22 @@
                     </svg>
 
                 </span>
-                <span v-show="props.isloged">
+                <span v-show="props.isloged" @click="() => { navigate('/commande') }">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:opacity-50" fill="none"
                         viewBox="0 0 24 24" stroke="black">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
+                </span>
+                <span v-show="props.isloged" class="flex gap-2 hover:bg-gray-200 p-2" @click="handleLogout">
+                    <svg fill="#000000" class="h-6 w-6 hover:opacity-50" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 489.8 489.8" xml:space="preserve">
+                        <path
+                            d="M489.8,244.9c0-9.5-7.7-17.1-17.1-17.1H160.4l77.6-77.6c6.7-6.7,6.7-17.6,0-24.3s-17.6-6.7-24.3,0L106.9,232.8 c-6.7,6.7-6.7,17.6,0,24.3l106.8,106.8c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5c6.7-6.7,6.7-17.6,0-24.3L160.3,262h312.3 C482.1,262,489.8,254.4,489.8,244.9z" />
+                        <path
+                            d="M34.3,438.7V51.1c0-9.5-7.7-17.1-17.1-17.1C7.7,34,0,41.7,0,51.1v387.6c0,9.5,7.7,17.1,17.2,17.1 C26.6,455.8,34.3,448.2,34.3,438.7z" />
+                    </svg>
+                    Logout
                 </span>
             </div>
         </header>
@@ -113,7 +122,8 @@
 </template>
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import axios from "axios";
+import { navigate } from "../utils/utils";
+import { fetchCategories, logout } from '../utils/api';
 
 const isMenuOpen = ref(false);
 const categories = ref([]);
@@ -122,25 +132,19 @@ const props = defineProps(['isloged']);
 const emit = defineEmits(['toggleSidebar']);
 
 
-// navigate to login
-const login = () => {
-    window.location.href = '/login';
-}
-// navigate to profile
-const profile = () => {
-    window.location.href = '/profile';
-}
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
 };
-const getCategories = async () => {
-    try {
-        axios.get('/categories').then(function (response) {
-            categories.value = response.data.data;
-        });
-    } catch (e) {
-        console.error('[GET DATA]:: Something Went Wrong', e);
-    }
+
+const getCategories = () => {
+    fetchCategories().then((data) => {
+        categories.value = data;
+    })
+}
+
+const handleLogout = () => {
+    logout();
+    navigate('/');
 }
 onMounted(() => {
     getCategories();

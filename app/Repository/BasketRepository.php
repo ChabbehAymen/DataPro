@@ -3,8 +3,6 @@
 namespace App\Repository;
 
 use App\Models\Basket;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
 
 class BasketRepository extends BaseRepository
 {

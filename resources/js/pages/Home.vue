@@ -10,7 +10,7 @@
         <Tag v-for="tag in tags" :title="tag.title" :id="tag.id" :key="tag.id" :hover="true" @selectTag="selectTag" :isSelected="selectTag.value == tag.id"/>
     </div>
     <div class=" mx-[4%] my-11 flex flex-wrap gap-2 justify-center sm:justify-start">
-        <Product v-for="product in products" :key="product.id" :product="product" @addProductToCart="addProductToCart"/>
+        <Product v-for="product in products" :key="product.id" :product="product" @addProductToCart="onAddProductToCart"/>
     </div>
     <Footer />
 </template>
@@ -24,8 +24,7 @@ import Tag from "../components/Tag.vue";
 import Footer from "../components/Footer.vue";
 import { onMounted, ref } from "vue";
 import { getUser, toggleSidebar } from "../utils/utils";
-import { fetchProducts, fetchTags, fetchProductsByTag } from "../utils/api";
-import axios from "axios";
+import { fetchProducts, fetchTags, fetchProductsByTag, addProductToCard } from "../utils/api";
 
 const products = ref([]);
 const tags = ref([]);
@@ -46,8 +45,15 @@ fetchProducts().then((data) => {
     products.value = data;
 });
 
-const addProductToCart = (id) => {
-    if (!isloged.value) window.location.href = '/login';
+// add product to card
+const onAddProductToCart = (id) => {
+    if (!getUser().bool) window.location.href = '/login';
+    addProductToCard(id, getUser()).then((responce)=>{
+        console.log(responce);
+        
+        if(responce.status == 200) console.log("YES");
+        else console.log("ERROR");
+    });
 };
 
 // const filter by tag

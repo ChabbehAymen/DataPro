@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BasketRequest;
 use App\Services\BasketService;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,12 @@ class BasketController extends Controller
         return view('basket.confirmed', compact('confirmedBaskets'));
     }
 
+    public function store(BasketRequest $request){
+        if($this->basketService->create($request))
+            return response()->json(["message"=>"Item Added To Basket"], 200);
+        else response()->json(["Error Someting Went Wrong"], 200);
+
+    }
     public function confirmBasket($id)
     {
         $this->basketService->confirmOrder($id);
