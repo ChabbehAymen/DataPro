@@ -69,7 +69,7 @@ export async function fetchUser() {
         return [];
     }
 }
-//update yser data
+//update user data
 export async function updateUser(userData) {
     try {
         const response = await axios.put('/user/update', userData, {
@@ -78,6 +78,18 @@ export async function updateUser(userData) {
         return response.data;
     } catch (error) {
         console.error("Error updating profile:", error.response?.data || error);
+        return [];
+    }
+}
+// update password for user
+export async function updatePassword(passwordData){
+    try {
+        const response = await axios.put('/user/update-password', passwordData, {
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return response.data;
+    } catch (error) {
+        throwError(error);
         return [];
     }
 }

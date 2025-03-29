@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
    Route::resource('/basket', BasketController::class);
    Route::get('/user',[ProfileController::class, 'show']);
    Route::put('/user/update',[ProfileController::class,'update']);
+   Route::put('/user/update-password',[ProfileController::class,'updatePassword']);
 });
 
 Route::get("/products/tag/{tag}", [ProductController::class, 'getProductsByTag'])->name('tag.products');
