@@ -8,8 +8,6 @@ import 'select2/dist/css/select2.min.css';
 select2();
 
 $(document).ready(function() {
-    console.log('jQuery et Select2 sont chargés');
-
     $('#tags').select2({
         placeholder: "Choisissez des options",
         allowClear: true,
