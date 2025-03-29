@@ -50,7 +50,7 @@
                       <label for="email">Phone Number</label>
                       <input
                         type="text"
-                        id="email"
+                        id="phone"
                         v-model="form.phone_number"
                         class="form-control"
                         required>
@@ -65,46 +65,38 @@
 
               <!-- Password Update Form -->
               <div class="card mt-4">
-                <!-- <div class="card-header">
+                <div class="card-header">
                   <h3>Update Password</h3>
                   <p class="text-muted">Ensure your account is using a secure password</p>
-                </div> -->
-                <!-- <div class="card-body"> -->
-                  <!-- <div v-if="passwordSuccess" class="alert alert-success" role="alert">
-                    {{ passwordSuccess }}
-                  </div> -->
-
-                  <!-- <form @submit.prevent="updatePassword"> -->
+                </div>
+                <div class="card-body">
+                  <form @submit.prevent="updatePassword">
                     <!-- Current Password -->
-                    <!-- <div class="form-group mb-3"> -->
-                      <!-- <label for="current_password">Current Password</label> -->
-                      <!-- <input
+                    <div class="form-group mb-3">
+                      <label for="current_password">Current Password</label>
+                      <input
                         type="password"
                         id="current_password"
                         v-model="passwordForm.current_password"
                         class="form-control"
-                        required> -->
-                      <!-- <p v-if="passwordErrors.current_password" class="text-danger mt-1">
-                        {{ passwordErrors.current_password }}
-                      </p> -->
-                    <!-- </div>  -->
+                        required>
 
-                    <!-- New Password -->
-                    <!-- <div class="form-group mb-3">
-                      <label for="password">New Password</label> -->
-                      <!-- <input
+                    </div>
+
+                    <!-- New Password  -->
+                    <div class="form-group mb-3">
+                      <label for="password">New Password</label>
+                      <input
                         type="password"
                         id="password"
                         v-model="passwordForm.password"
                         class="form-control"
-                        required> -->
-                      <!-- <p v-if="passwordErrors.password" class="text-danger mt-1">
-                        {{ passwordErrors.password }}
-                      </p> -->
-                    <!-- </div> -->
+                        required>
+
+                    </div>
 
                     <!-- Confirm Password -->
-                    <!-- <div class="form-group mb-3">
+                    <div class="form-group mb-3">
                       <label for="password_confirmation">Confirm New Password</label>
                       <input
                         type="password"
@@ -112,14 +104,13 @@
                         v-model="passwordForm.password_confirmation"
                         class="form-control"
                         required>
-                    </div> -->
+                    </div>
 
-                    <!-- <button type="submit" class="btn btn-primary" :disabled="isUpdatingPassword">
-                      <span v-if="isUpdatingPassword">Updating...</span>
-                      <span v-else>Update Password</span>
-                    </button> -->
-                  <!-- </form> -->
-                <!-- </div> -->
+                    <button type="submit" class="btn btn-primary" >
+                      Update Password
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
 
@@ -163,7 +154,7 @@
   </template>
 
   <script>
-  import { fetchUser, updateUser } from '../utils/api.js';
+  import { fetchUser, updatePassword , updateUser } from '../utils/api.js';
 
 
   export default {
@@ -183,6 +174,12 @@
         email: '',
         phone_number:'',
         picture:'',
+        },
+
+        passwordForm: {
+            current_password:'',
+            password:'',
+            password_confirmation:'',
         },
       };
     },
@@ -243,7 +240,36 @@
                 console.error("Profile update error:", error);
                 alert("Failed to update profile.");
             }
-    }
+        },
+        //update password
+        async updatePassword(){
+            try {
+                if (!this.passwordForm.current_password || !this.passwordForm.password || !this.passwordForm.password_confirmation) {
+                    alert("Please fill in all fields.");
+                    return;
+                }
+                if (this.passwordForm.password !== this.passwordForm.password_confirmation) {
+                    alert("Password do not match.")
+                    return
+                }
+                const response = await updatePassword(this.passwordForm);
+                console.log("Password Update Response:", response);
+
+                // ✅ Check Laravel response correctly
+                if (response) {
+                    alert("Password updated successfully!");
+                    this.passwordForm.current_password = '';
+                    this.passwordForm.password = '';
+                    this.passwordForm.password_confirmation = '';
+                }
+                else{
+                    alert(response.message || "Something went wrong !");
+                }
+            } catch (error) {
+                console.error("Password update error:", error);
+                alert("Failed to update password.");
+            }
+        }
 
 
     }
