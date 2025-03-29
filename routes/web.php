@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get("/products/tag/{tag}", [ProductController::class, 'getProductsByTag'])->name('tag.products');
+Route::get("/products/title/{title}", [ProductController::class, 'getProductsByTitle'])->name('title.products');
 Route::get("/products/category/{category}", [ProductController::class, 'getProductsByCategory'])->name('category.products');
 Route::name('public')->resource('/tags', TagsController::class);
 Route::name('public')->resource('products', ProductController::class);

@@ -47,10 +47,9 @@
 </template>
 <script setup>
 import { onMounted, ref, useTemplateRef } from "vue";
-import { getUser, toggleSidebar } from "../utils/utils";
-import { addProductToCard } from "../utils/api";
-import { fetchProductById } from "../utils/api";
-import axios from "axios";
+import { getUser, navigate, toggleSidebar } from "../utils/utils";
+import { fetchProductById, addProductToCard } from "../utils/api";
+
 import Header from "../components/Header.vue";
 import SideBar from "../components/SideBar.vue";
 import Tag from "../components/Tag.vue";
@@ -74,7 +73,8 @@ const handleSideBarVisibility = () => {
 };
 
 const handleAddProductToCart = () => {
-    addProductToCard(props.id, getUser());
+    if(!getUser().bool) navigate('/login');
+    addProductToCard(props.id);
 };
 
 onMounted(() => {

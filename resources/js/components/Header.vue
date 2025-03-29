@@ -59,7 +59,7 @@
 
             <div class="flex items-center gap-3 pr-3">
                 <!-- Search Bar -->
-                <div class='hidden sm:block w-full max-w-sm bg-gray-100 rounded-3xl'>
+                <div class='hidden md:block w-full max-w-sm bg-gray-100 rounded-3xl relative'>
                     <div
                         class="flex items-center px-3.5 py-1 text-gray-400 group focus-within:!ring-2 focus-within:!ring-blue-500 rounded-full">
                         <svg class="mr-2 h-5 w-5 stroke-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="2">
@@ -68,12 +68,24 @@
                             </path>
                         </svg>
                         <input
+                            @keyup="searchProducts"
                             class="block w-full appearance-none bg-transparent text-base text-gray-700 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
                             placeholder="Find anything..." aria-label="Search components"
                             id="headlessui-combobox-input-:r5n:" role="combobox" type="text" aria-expanded="false"
                             aria-autocomplete="list" value="" style="caret-color: rgb(107, 114, 128)" />
                     </div>
-
+                    
+                    <div v-show="showData && !showEmpty" class="absolute -bottom-[17rem] shadow rounded left-0 w-72 h-64 bg-white">
+                        <div v-show="showData" class="w-full h-full overflow-y-auto p-2">
+                            <div v-for="product in searchedProducts" :key="product.id" @click="() => { navigate(`/product/${product.id}`) }" class="flex items-center gap-1 justify-between border-bottom mb-2 pb-2 cursor-pointer hover:bg-gray-100">
+                                <div class="flex items-center justify-center gap-1">
+                                    <div class=" h-[5vh] w-[5vw] bg-contain bg-no-repeat bg-center" :style="{ backgroundImage: `url(${product.product_image[0].img})` }"></div>
+                                    <p class="p-0 m-0  overflow-hidden">{{ product.title }}</p>
+                                </div>
+                                <p class="p-0 m-0 text-green-500">{{ product.price }} DT</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <button v-show="props.isloged == false" @click="() => { navigate('/login') }"
                     class="cursor-pointer flex items-center gap-1 text-gray-700">
@@ -106,7 +118,8 @@
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                 </span>
-                <span v-show="props.isloged" class="hidden sm:flex gap-2 hover:bg-gray-100 p-2 items-center" @click="handleLogout">
+                <span v-show="props.isloged" class="hidden sm:flex gap-2 hover:bg-gray-100 p-2 items-center"
+                    @click="handleLogout">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
                         class="h-5 w-5">
                         <path fill-rule="evenodd"
@@ -122,10 +135,13 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { navigate } from "../utils/utils";
-import { fetchCategories, logout } from '../utils/api';
+import { fetchCategories, fetchProductsByTitle, logout } from '../utils/api';
 
 const isMenuOpen = ref(false);
 const categories = ref([]);
+const showEmpty = ref(false);
+const showData = ref(false);
+const searchedProducts = ref([]);
 const iconRotation = computed(() => isMenuOpen.value ? 'rotate-180' : 'rotate-0');
 const props = defineProps(['isloged']);
 const emit = defineEmits(['toggleSidebar']);
@@ -148,6 +164,20 @@ const handleLogout = () => {
 onMounted(() => {
     getCategories();
 });
+
+const searchProducts = (e) => {
+    if (e.target.value === '') {
+        showEmpty.value = false;
+        showData.value = false;
+        return;
+    }
+    fetchProductsByTitle(e.target.value).then((data) => {
+        searchedProducts.value = data;
+        showEmpty.value = data.length === 0 && e.target.value !== '';
+        showData.value = data.length > 0 && e.target.value !== '';
+        console.log(data, e.target.value, showEmpty.value, showData.value);
+    })
+}
 
 </script>
 <style></style>
