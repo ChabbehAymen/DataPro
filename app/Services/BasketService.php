@@ -37,4 +37,14 @@ class BasketService extends BaseService
     {
         return Basket::paginate($perPage);
     }
+
+    public function CompletedOrders()
+    {
+        return $this->repository->CompletedOrders();
+
+    }
+    public function ConfimedOrders()
+    {
+        return $this->repository->ConfimedOrders();
+    }
 }

@@ -346,7 +346,7 @@ return [
         [
             'text' => 'Products',
             'icon' => 'fas fa-boxes',
-            'label' => (isset($data) ? sizeof($data) : 0),
+            'label' => (isset($data) ? sizeof($data) : 1),
             'label_color' => 'info',
             'submenu' => [
                 [

@@ -1,5 +1,6 @@
 import axios from 'axios';
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').content;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').content;
 
 function throwError(error) {
     console.error('[GET DATA]:: Something Went Wrong', error);

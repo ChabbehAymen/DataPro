@@ -8,6 +8,8 @@ use App\Http\Controllers\TagsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
+use App\Http\Controllers\DashboardController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Auth::routes();
 
@@ -21,16 +23,13 @@ Route::middleware(AdminAccess::class)->group(function () {
    Route::get('/admin/baskets/{id}/confirm', [BasketController::class, 'confirmBasket'])->name('baskets.confirm');
    Route::get('/admin/baskets/{id}/complete', [BasketController::class, 'completeBasket'])->name('baskets.complete');
 
+   Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-   Route::get('/admin/dashboard', function () {
-       return view('dashboard');
-   })->name('dashboard');
 });
 Route::middleware('auth')->group(function () {
    Route::resource('/basket', BasketController::class);
    Route::get('/user',[ProfileController::class, 'show']);
    Route::put('/user/update',[ProfileController::class,'update']);
-   Route::put('/user/update-password',[ProfileController::class,'updatePassword']);
 });
 
 Route::get("/products/tag/{tag}", [ProductController::class, 'getProductsByTag'])->name('tag.products');

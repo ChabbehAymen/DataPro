@@ -44,4 +44,6 @@ interface RepositoryContract{
      * @return void
      */
     public function delete(int $id);
+    public function count();
+
 }

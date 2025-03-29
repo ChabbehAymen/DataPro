@@ -66,7 +66,7 @@ class BaseRepository implements RepositoryContract
      */
     public function find(int $id): mixed
     {
-        if($this->relations != null) 
+        if($this->relations != null)
             return $this->model->with($this->relations)->findOrFail($id);
         return $this->model->findOrFail($id);
     }
@@ -104,5 +104,10 @@ class BaseRepository implements RepositoryContract
     public function delete(int $id): bool
     {
         return $this->model->destroy($id);
+    }
+
+    public function count(): int
+    {
+        return $this->model->count();
     }
 }

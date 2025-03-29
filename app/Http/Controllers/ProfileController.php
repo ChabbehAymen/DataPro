@@ -57,4 +57,30 @@ class ProfileController extends Controller
             'message' => 'Password updated successfully'
         ]);
     }
+
+    public function uploadAvatar(Request $request)
+    {
+        $request->validate([
+            'picture' => 'required|image|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        // Delete old avatar if exists
+        if ($user->picture && Storage::disk('public')->exists($user->picture)) {
+            Storage::disk('public')->delete($user->picture);
+        }
+
+        // Store new avatar
+        $path = $request->file('picture')->store('avatars', 'public');
+
+        $user->update([
+            'picture' => $path
+        ]);
+
+        return response()->json([
+            'message' => 'Avatar uploaded successfully',
+            'picture' => $path
+        ]);
+    }
 }
