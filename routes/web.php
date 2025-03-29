@@ -16,6 +16,11 @@ Route::middleware(AdminAccess::class)->group(function () {
    Route::resource('/admin/tags', TagsController::class);
    Route::resource('/admin/products', ProductController::class);
    Route::resource('/admin/categories', CategoryController::class);
+   Route::resource('/admin/baskets', BasketController::class);
+   Route::get('/baskets/confirmed', [BasketController::class, 'showConfirmedBaskets'])->name('baskets.confirmed');
+   Route::get('/admin/baskets/{id}/confirm', [BasketController::class, 'confirmBasket'])->name('baskets.confirm');
+   Route::get('/admin/baskets/{id}/complete', [BasketController::class, 'completeBasket'])->name('baskets.complete');
+
 
    Route::get('/admin/dashboard', function () {
        return view('dashboard');
