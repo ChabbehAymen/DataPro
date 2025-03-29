@@ -104,6 +104,22 @@ export async function addProductToCard(id) {
 }
 
 /**
+ * Get all commands from the server.
+ *
+ * @return {Promise<Array>} An array of commands.
+ * 
+ * */
+export async function fetchCommands()
+{
+    try {
+        const response = await axios.get('/basket');
+        return response.data;
+    } catch (error) {
+        throwError(error);
+        return [];
+    }
+}
+/**
  * Login the user out
  *
  * */
