@@ -106,13 +106,12 @@
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                 </span>
-                <span v-show="props.isloged" class="flex gap-2 hover:bg-gray-200 p-2" @click="handleLogout">
-                    <svg fill="#000000" class="h-6 w-6 hover:opacity-50" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 489.8 489.8" xml:space="preserve">
-                        <path
-                            d="M489.8,244.9c0-9.5-7.7-17.1-17.1-17.1H160.4l77.6-77.6c6.7-6.7,6.7-17.6,0-24.3s-17.6-6.7-24.3,0L106.9,232.8 c-6.7,6.7-6.7,17.6,0,24.3l106.8,106.8c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5c6.7-6.7,6.7-17.6,0-24.3L160.3,262h312.3 C482.1,262,489.8,254.4,489.8,244.9z" />
-                        <path
-                            d="M34.3,438.7V51.1c0-9.5-7.7-17.1-17.1-17.1C7.7,34,0,41.7,0,51.1v387.6c0,9.5,7.7,17.1,17.2,17.1 C26.6,455.8,34.3,448.2,34.3,438.7z" />
+                <span v-show="props.isloged" class="hidden sm:flex gap-2 hover:bg-gray-100 p-2 items-center" @click="handleLogout">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                        class="h-5 w-5">
+                        <path fill-rule="evenodd"
+                            d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
+                            clip-rule="evenodd"></path>
                     </svg>
                     Logout
                 </span>
