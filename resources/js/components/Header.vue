@@ -59,7 +59,7 @@
 
             <div class="flex items-center gap-3 pr-3">
                 <!-- Search Bar -->
-                <div class='hidden sm:block w-full max-w-sm bg-gray-100 rounded-3xl'>
+                <div class='hidden md:block w-full max-w-sm bg-gray-100 rounded-3xl relative'>
                     <div
                         class="flex items-center px-3.5 py-1 text-gray-400 group focus-within:!ring-2 focus-within:!ring-blue-500 rounded-full">
                         <svg class="mr-2 h-5 w-5 stroke-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="2">
@@ -68,12 +68,24 @@
                             </path>
                         </svg>
                         <input
+                            @keyup="searchProducts"
                             class="block w-full appearance-none bg-transparent text-base text-gray-700 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
                             placeholder="Find anything..." aria-label="Search components"
                             id="headlessui-combobox-input-:r5n:" role="combobox" type="text" aria-expanded="false"
                             aria-autocomplete="list" value="" style="caret-color: rgb(107, 114, 128)" />
                     </div>
-
+                    
+                    <div v-show="showData && !showEmpty" class="absolute -bottom-[17rem] shadow rounded left-0 w-72 h-64 bg-white">
+                        <div v-show="showData" class="w-full h-full overflow-y-auto p-2">
+                            <div v-for="product in searchedProducts" :key="product.id" @click="() => { navigate(`/product/${product.id}`) }" class="flex items-center gap-1 justify-between border-bottom mb-2 pb-2 cursor-pointer hover:bg-gray-100">
+                                <div class="flex items-center justify-center gap-1">
+                                    <div class=" h-[5vh] w-[5vw] bg-contain bg-no-repeat bg-center" :style="{ backgroundImage: `url(${product.product_image[0].img})` }"></div>
+                                    <p class="p-0 m-0  overflow-hidden">{{ product.title }}</p>
+                                </div>
+                                <p class="p-0 m-0 text-green-500">{{ product.price }} DT</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <button v-show="props.isloged == false" @click="() => { navigate('/login') }"
                     class="cursor-pointer flex items-center gap-1 text-gray-700">
@@ -106,13 +118,13 @@
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                 </span>
-                <span v-show="props.isloged" class="flex gap-2 hover:bg-gray-200 p-2" @click="handleLogout">
-                    <svg fill="#000000" class="h-6 w-6 hover:opacity-50" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 489.8 489.8" xml:space="preserve">
-                        <path
-                            d="M489.8,244.9c0-9.5-7.7-17.1-17.1-17.1H160.4l77.6-77.6c6.7-6.7,6.7-17.6,0-24.3s-17.6-6.7-24.3,0L106.9,232.8 c-6.7,6.7-6.7,17.6,0,24.3l106.8,106.8c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5c6.7-6.7,6.7-17.6,0-24.3L160.3,262h312.3 C482.1,262,489.8,254.4,489.8,244.9z" />
-                        <path
-                            d="M34.3,438.7V51.1c0-9.5-7.7-17.1-17.1-17.1C7.7,34,0,41.7,0,51.1v387.6c0,9.5,7.7,17.1,17.2,17.1 C26.6,455.8,34.3,448.2,34.3,438.7z" />
+                <span v-show="props.isloged" class="hidden sm:flex gap-2 hover:bg-gray-100 p-2 items-center"
+                    @click="handleLogout">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                        class="h-5 w-5">
+                        <path fill-rule="evenodd"
+                            d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
+                            clip-rule="evenodd"></path>
                     </svg>
                     Logout
                 </span>
@@ -123,10 +135,13 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { navigate } from "../utils/utils";
-import { fetchCategories, logout } from '../utils/api';
+import { fetchCategories, fetchProductsByTitle, logout } from '../utils/api';
 
 const isMenuOpen = ref(false);
 const categories = ref([]);
+const showEmpty = ref(false);
+const showData = ref(false);
+const searchedProducts = ref([]);
 const iconRotation = computed(() => isMenuOpen.value ? 'rotate-180' : 'rotate-0');
 const props = defineProps(['isloged']);
 const emit = defineEmits(['toggleSidebar']);
@@ -149,6 +164,20 @@ const handleLogout = () => {
 onMounted(() => {
     getCategories();
 });
+
+const searchProducts = (e) => {
+    if (e.target.value === '') {
+        showEmpty.value = false;
+        showData.value = false;
+        return;
+    }
+    fetchProductsByTitle(e.target.value).then((data) => {
+        searchedProducts.value = data;
+        showEmpty.value = data.length === 0 && e.target.value !== '';
+        showData.value = data.length > 0 && e.target.value !== '';
+        console.log(data, e.target.value, showEmpty.value, showData.value);
+    })
+}
 
 </script>
 <style></style>

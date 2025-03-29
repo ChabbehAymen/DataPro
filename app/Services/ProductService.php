@@ -53,6 +53,17 @@ class ProductService extends BaseService
     }
 
     /**
+     * Retrieve products by Title.
+     *
+     * @param string $title
+     * @return Collection
+     */
+    public function getProductsByTitle(string $title): Collection
+    {
+        return $this->repository->all(['title', 'like', "%{$title}%"]);
+    }
+
+    /**
      * Create a new product.
      *
      * @param FormRequest $request

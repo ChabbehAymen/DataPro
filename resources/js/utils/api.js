@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getcsrfToken } from './utils';
+import { getcsrfToken, getUser } from './utils';
 
 function throwError(error) {
     console.error('[GET DATA]:: Something Went Wrong', error);
@@ -68,6 +68,22 @@ export async function fetchProductsByTag(id) {
 }
 
 /**
+ * Fetch products by a specific title.
+ *
+ * @param {string} title - The title of the product.
+ * @return {Promise<Array>} An array of products associated with the title.
+ */
+export async function fetchProductsByTitle(title) {
+    try {
+        const response = await axios.get(`/products/title/${title}`);
+        return response.data;
+    } catch (e) {
+        throwError(e);
+        return [];
+    }
+}
+
+/**
  * Fetch a product by its ID.
  *
  * @param {number} id - The ID of the product.
@@ -90,6 +106,7 @@ export async function fetchProductById(id) {
  * @param {Object} user - The user object.
  */
 export async function addProductToCard(id) {
+    if(!getUser().bool) return;
     try {
         const csrfToken = getcsrfToken(); // Get the CSRF token
         const response = await axios.post('/basket', { product_id: id }, {
@@ -131,7 +148,13 @@ export async function logout() {
         throwError(error);
     }
 }
-//frtct user data
+/**
+ * Update the user's data.
+ *
+ * @param {Object} userData - The user data.
+ * @return {Promise<Object>} The user data.
+ */
+
 export async function fetchUser() {
     try {
         const response = await axios.get('/user');
@@ -141,7 +164,12 @@ export async function fetchUser() {
         return [];
     }
 }
-//update user data
+/**
+ * Fetch the user data from the server.
+ *
+ * @return {Promise<Object>} The user data.
+ */
+
 export async function updateUser(userData) {
     try {
         const response = await axios.put('/user/update', userData, {
@@ -153,7 +181,12 @@ export async function updateUser(userData) {
         return [];
     }
 }
-// update password for user
+/**
+ * Update the user's password.
+ *
+ * @param {Object} passwordData - The password data.
+ * @return {Promise<Object>} The user data.
+ */
 export async function updatePassword(passwordData){
     try {
         const response = await axios.put('/user/update-password', passwordData, {

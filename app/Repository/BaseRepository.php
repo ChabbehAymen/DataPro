@@ -51,9 +51,17 @@ class BaseRepository implements RepositoryContract
         $model = $this->model;
         if($this->relations != null) $model = $model->with($this->relations);
         if($condition != null) {
-            $model = $model->whereHas($condition[0], function($query) use ($condition) {
-                $query->where($condition[1], $condition[2]);
-            });
+            if (count($condition) === 3) {
+                if (isset($condition[0]) && is_string($condition[0]) && !method_exists($this->model, $condition[0])) {
+                    // Direct where clause on the model
+                    $model = $model->where($condition[0], $condition[1], $condition[2]);
+                } else {
+                    // Relationship query
+                    $model = $model->whereHas($condition[0], function($query) use ($condition) {
+                        $query->where($condition[1], $condition[2]);
+                    });
+                }
+            }
         }
         return $model->get();
     }
