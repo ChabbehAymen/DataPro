@@ -8,10 +8,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>150</h3> 
+                    <h3>{{ $totalProducts }}</h3>
                     <p>Produits</p>
                 </div>
                 <div class="icon">
@@ -19,34 +19,48 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>75</h3> 
-                    <p>Reviews</p>
+                    <h3>{{ $totalTags }}</h3>
+                    <p>Tags</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-comment-alt"></i>
+                    <i class="fas fa-tags"></i>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>10</h3> 
+                    <h3>{{ $totalCategories }}</h3>
                     <p>Catégories</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-th"></i>
+                    <i class="fas fa-list"></i>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3 col-6">
+        {{-- <div class="col-lg-4 col-6">
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>250</h3> 
+                    <h3>250</h3>
+                    <p>Commandes</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
+        </div> --}}
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-6">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>{{ $totalBaskets }}</h3>
                     <p>Commandes</p>
                 </div>
                 <div class="icon">
@@ -54,55 +68,41 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-primary">
-                <div class="inner">
-                    <h3>50</h3>
-                    <p>Alimentation</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-battery-full"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
             <div class="small-box bg-secondary">
                 <div class="inner">
-                    <h3>40</h3> 
-                    <p>Informatique</p>
+                    <h3>{{ $totalConfirmedOrders }}</h3>
+                    <p>Commandes confirmées</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-laptop"></i>
+                    <i class="fas fa-check-circle"></i>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>30</h3> 
-                    <p>Câbles & Cordons</p>
+                    <h3>{{ $totalCompletedOrders }}</h3>
+                    <p>Commandes terminées</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-plug"></i>
+                    <i class="fas fa-clipboard-check"></i>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3 col-6">
+        {{-- <div class="col-lg-4 col-6">
             <div class="small-box bg-light">
                 <div class="inner">
-                    <h3>60</h3> 
+                    <h3>60</h3>
                     <p>Centre De Téléchargement</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-cloud-download-alt"></i>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection

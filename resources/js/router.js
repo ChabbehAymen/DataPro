@@ -9,6 +9,7 @@ const routes = [
         path: '/profile',
         component: () => import('./pages/Profile.vue')
     },
+
     {
         path: '/product/:id',
         component: () => import('./pages/ProductDetails.vue'),
@@ -23,7 +24,7 @@ const routes = [
         path: '/about',
         component: ""//() => import('./pages/About.vue')
     },
-  
+
 ];
 
 export default createRouter({

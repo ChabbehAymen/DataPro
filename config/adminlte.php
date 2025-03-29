@@ -346,7 +346,7 @@ return [
         [
             'text' => 'Products',
             'icon' => 'fas fa-boxes',
-            'label' => (isset($data) ? sizeof($data) : 0),
+            'label' => (isset($data) ? sizeof($data) : 1),
             'label_color' => 'info',
             'submenu' => [
                 [
@@ -391,6 +391,24 @@ return [
                 ],
             ],
         ],
+[
+    'text' => 'Orders',
+    'icon' => 'fas fa-cart-plus', 
+    'label' => (isset($baskets) ? sizeof($baskets) : 0),
+    'label_color' => 'info',
+    'submenu' => [
+        [
+            'text' => 'List Orders',
+            'url' => '/admin/baskets',
+            'icon' => 'fas fa-list-ul', 
+        ],
+        [
+            'text' => 'Confirm Orders',
+            'url' => '/baskets/confirmed',
+            'icon' => 'fas fa-check-circle',
+        ],
+    ],
+],
     ],
 
     /*

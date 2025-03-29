@@ -131,3 +131,37 @@ export async function logout() {
         throwError(error);
     }
 }
+//frtct user data
+export async function fetchUser() {
+    try {
+        const response = await axios.get('/user');
+        return response.data;
+    } catch (error) {
+        throwError(error);
+        return [];
+    }
+}
+//update user data
+export async function updateUser(userData) {
+    try {
+        const response = await axios.put('/user/update', userData, {
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error updating profile:", error.response?.data || error);
+        return [];
+    }
+}
+// update password for user
+export async function updatePassword(passwordData){
+    try {
+        const response = await axios.put('/user/update-password', passwordData, {
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return response.data;
+    } catch (error) {
+        throwError(error);
+        return [];
+    }
+}

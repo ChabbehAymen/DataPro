@@ -5,3 +5,8 @@
 :root{
     --primary: lightblue;
 }
+.select2-container--classic .select2-selection--multiple .select2-selection__choice {
+    background-color: #007bff !important; 
+    color: white !important;
+    border: none;
+}
