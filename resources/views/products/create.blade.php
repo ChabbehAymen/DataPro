@@ -28,7 +28,7 @@
 
         <!-- /.card-header -->
         <!-- form start -->
-        <form action="{{ route('products.store') }}" method="POST">
+        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
 
@@ -41,14 +41,13 @@
                             class="rounded-l-lg p-4 bg-gray-200 flex flex-col justify-center items-center border-0 border-r border-gray-300 ">
                             <label
                                 class="cursor-pointer hover:opacity-80 inline-flex items-center shadow-md my-2 px-2 py-2 bg-blue-500 text-gray-50 border border-transparent rounded-md font-semibold text-xs uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                                for="restaurantImage">
+                                for="productImage">
 
                                 Select images
-                                <input max="4" multiple name="image" id="restaurantImage" class="text-sm cursor-pointer w-36 hidden"
-                                    type="file">
+                                <input multiple type="file" name="images[]" id="productImage" class="text-sm cursor-pointer w-36 hidden">
                             </label>
                         </div>
-                        <div class="relative order-first md:order-last h-28 md:h-auto flex justify-center items-center border border-dashed border-gray-400 col-span-2 m-2 rounded-lg bg-no-repeat bg-center bg-origin-padding bg-cover"
+                        <div class="relative order-first md:order-last h-28 md:h-auto flex justify-center items-center border border-dashed border-gray-400 col-span-2 m-2 rounded-lg bg-no-repeat bg-center bg-origin-padding bg-contain"
                             id="imageHolder">
                             <span class="text-gray-400 opacity-75">
                                 <svg class="w-14 h-14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

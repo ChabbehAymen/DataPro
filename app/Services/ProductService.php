@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repository\ProductRepository;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class ProductService extends BaseService
 {
@@ -76,14 +77,52 @@ class ProductService extends BaseService
         $product = $this->repository->create($data);
         if($product)
         {
+            $this->saveImages($data['images'], $product);
             $product->category()->attach($request->input('category'));
             if(!empty($request->input('tags')))
             {
                 $product->tag()->attach($request->input('tags'));
             }
+
             return true;
         }
         return false;
+    }
+
+    
+    /**
+     * Save images for a product.
+     * 
+     * @param array $images
+     * @param Product $product
+     * @return void
+     */
+
+    public function saveImages($images, $product)
+    {
+        $images = $this->uploadImages($images);
+        foreach($images as $image)
+        {
+            $product->productImage()->create(['image' => $image]);
+        }
+    }
+    
+    /**
+     * Uploads images to the public/products directory, and returns an array of formatted paths.
+     *
+     * @param array $images
+     * @return array
+     */
+    public function uploadImages($images)
+    {
+        $formattedImagePaths = [];
+        foreach ($images as $image) {
+            $filename = Str::uuid() . '.' . $image->getClientOriginalExtension();
+            $path = "images/products/";
+            $image->move(public_path($path), $filename);
+            $formattedImagePaths[] = '/'.$path . $filename;
+        }
+        return $formattedImagePaths;
     }
     /**
      * Update an existing product by its ID.

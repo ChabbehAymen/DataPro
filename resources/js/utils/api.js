@@ -111,7 +111,8 @@ export async function addProductToCard(id) {
         const csrfToken = getcsrfToken(); // Get the CSRF token
         const response = await axios.post('/basket', { product_id: id }, {
             headers: {
-                'X-CSRF-TOKEN': csrfToken
+                'X-CSRF-TOKEN': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
             }
         });
         return response.data;
@@ -129,7 +130,11 @@ export async function addProductToCard(id) {
 export async function fetchCommands()
 {
     try {
-        const response = await axios.get('/basket');
+        const response = await axios.get('/basket', {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
         return response.data;
     } catch (error) {
         throwError(error);
@@ -148,16 +153,19 @@ export async function logout() {
         throwError(error);
     }
 }
+
 /**
- * Update the user's data.
+ * Fetch the user data from the server.
  *
- * @param {Object} userData - The user data.
  * @return {Promise<Object>} The user data.
  */
-
 export async function fetchUser() {
     try {
-        const response = await axios.get('/user');
+        const response = await axios.get('/user', {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
         return response.data;
     } catch (error) {
         throwError(error);
@@ -165,8 +173,9 @@ export async function fetchUser() {
     }
 }
 /**
- * Fetch the user data from the server.
+ * Update the user's data.
  *
+ * @param {Object} userData - The user data.
  * @return {Promise<Object>} The user data.
  */
 

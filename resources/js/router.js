@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { navigate } from './utils/utils';
 
 const routes = [
     {
@@ -25,6 +26,13 @@ const routes = [
         component: ""//() => import('./pages/About.vue')
     },
 
+    // ❗️404 route should be the last one
+    {
+        path: '/:pathMatch(.*)*',
+        beforeEnter: () => {
+            navigate('/notfound');
+        }
+    }
 ];
 
 export default createRouter({

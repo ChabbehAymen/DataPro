@@ -48,6 +48,6 @@ const navigateToProduct = () => {
 };
 
 onMounted(() => {
-    document.querySelector("#"+imageId).style.backgroundImage = `url(${props.product.product_image[0].img})`;
+    document.querySelector("#"+imageId).style.backgroundImage = `url(${props.product.product_image[0].image})`;
 });
 </script>

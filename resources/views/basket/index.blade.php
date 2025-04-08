@@ -34,8 +34,8 @@
                             <thead >
                                 <tr>
                                     <th>User</th>
+                                    <th>Phone Number</th>
                                     <th>Product</th>
-                                    <th>Quantity</th>
                                     <th>Order Date</th>
                                     <th>Actions</th>
                                 </tr>
@@ -44,8 +44,8 @@
                                 @foreach($baskets as $basket)
                                     <tr>
                                         <td>{{ optional($basket->user)->full_name }}</td>
+                                        <td>{{ $basket->user->phone_number }}</td>
                                         <td>{{ optional($basket->product)->title }}</td>
-                                        <td>{{ $basket->quantity }}</td>
                                         <td>{{ $basket->date }}</td>
                                         <td>
                                             @if(!$basket->confirmed)

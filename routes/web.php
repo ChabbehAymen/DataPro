@@ -7,9 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 use App\Http\Controllers\DashboardController;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Middleware\AjaxOnly;
 
 Auth::routes();
 
@@ -26,7 +25,7 @@ Route::middleware(AdminAccess::class)->group(function () {
    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 });
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', AjaxOnly::class])->group(function () {
    Route::resource('/basket', BasketController::class);
    Route::get('/user',[ProfileController::class, 'show']);
    Route::put('/user/update',[ProfileController::class,'update']);
@@ -38,6 +37,10 @@ Route::get("/products/category/{category}", [ProductController::class, 'getProdu
 Route::name('public')->resource('/tags', TagsController::class);
 Route::name('public')->resource('products', ProductController::class);
 Route::name('public')->resource('/categories', CategoryController::class);
+
+Route::get("/notfound", function(){
+   abort(404);
+})->name('notfound');
 // Vue Router
 Route::get('/{vue_capture}', function () {
    return view('welcome');

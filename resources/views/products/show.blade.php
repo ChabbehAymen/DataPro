@@ -75,8 +75,8 @@
                 <h5 class="h3 font-bold">Product Images</h5>
                 <div class="row">
                     @forelse($product->productImage as $image)
-                        <div class="col-md-3">
-                            <img src="{{ asset($image->img) }}" class="img-fluid rounded" alt="Product Image">
+                        <div class="col-md-2">
+                            <img src="{{ asset($image->image) }}" class="img-fluid rounded h-24 w-24" alt="Product Image">
                         </div>
                     @empty
                         <p class="text-gray-500">No images available</p>

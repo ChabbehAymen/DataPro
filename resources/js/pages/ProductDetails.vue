@@ -1,23 +1,23 @@
 <template>
     <Header @toggleSidebar="handleSideBarVisibility" :isloged="getUser().bool" />
     <SideBar :isopen="isSidebarOpen" @toggleSidebar="handleSideBarVisibility" />
-    <div class="flex items-center flex-wrap h-screen p-6 gap-6">
+    <div class="flex items-center flex-wrap h-screen p-6 gap-4 mt-20">
         <!-- Product Image Section -->
         <div class="flex flex-col gap-3">
             <div ref="mainImage"
                 class="md:h-[70vh] md:w-[40vw] h-[40vh] w-[90vw] bg-contain bg-no-repeat rounded-md shadow bg-center">
             </div>
-            <div v-if="product && product.product_image.lenght > 1" class="flex gap-3">
-                <div ref="subImage" v-for="img in product.product_image"
+            <div v-if="product && product.product_image.length > 1" class="flex gap-3">
+                <div ref="subImage" v-for="image in product.product_image"
                     class="md:flex-col h-24 w-24 gap-3 z-50 bg-contain bg-no-repeat rounded-md shadow bg-center"
-                    :class="{ 'border-2 border-black': selectedImg.value == img.id }">
+                    :class="{ 'border-2 border-black': selectedImg == image.id }" :style="{ backgroundImage: `url(${image.image})` }">
                 </div>
             </div>
         </div>
 
         <!-- Product Details Section -->
 
-        <div class="p-6 relative">
+        <div class="p-6 relative w-[45vw]">
 
             <div class="">
                 <Tag v-for="tag in product.tag" :title="tag.title" :id="tag.id" :key="tag.id" />
@@ -79,10 +79,10 @@ const handleAddProductToCart = () => {
 
 onMounted(() => {
 
-    mainImage.value.style.backgroundImage = `url('${product.value.product_image[0].img}')`;
+    mainImage.value.style.backgroundImage = `url('${product.value.product_image[0].image}')`;
     if (subImage.value) {
         subImage.value.forEach((element, index) => {
-            element.style.backgroundImage = `url('${product.value.product_image[index].img}')`;
+            element.style.backgroundImage = `url('${product.value.product_image[index].image}')`;
         });
     }
 
